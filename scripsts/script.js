@@ -3,29 +3,54 @@ let opc, cont = 0, mayora, totala, datos = false;
 
 //Menu Principal
 function menu(){
-    console.log(`\t*************************************
-    *           MENU PRINCIPAL          *
-    *************************************\n
+
+opc = prompt(`MENU PRINCIPAL\n
     1_Ingresar datos de máquinas.
     2_Lista de datos.
     3_Enviar Correo de informe diario.
     4_Enviar Correo para máquinas que requieren mantenimiento.
-    5_Buscar máquinas por nombre de operario.\t\t\t6_SALIR\n
-`);
-opc = prompt("Seleccione una opción:");
+    5_Buscar máquinas por nombre de operario.   6_SALIR\n
+Seleccione una opción:`);
 opc = parseInt(opc);
 }
 
-//Llamamos la función menu
-menu();
-
-//Selección de opciones en el menú
+do{
+    //Llamamos la función menú
+    menu();
+    //Selección de opciones en el menú
+    switch(opc){
+        case 1:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;
+        case 2:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;
+        case 3:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;
+        case 4:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;
+        case 5:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;
+        case 6:
+            datos = true;
+            alert("El número elegido es el "+opc);
+            break;    
+    }
+}while (opc != 6);
 // do{
-    if(opc == 1){
-        datos = true;
-        console.clear();
-        console.log("El número es 1")
-    };
+    // if(opc == 1){
+    //     datos = true;
+    //     console.clear();
+    //     console.log("El número es 1")
+    // };
 
 //     console.clear();
 
@@ -113,3 +138,18 @@ menu();
 //         //     system("pause");
 //     }
 // }while(opc != 6);
+
+
+
+
+
+
+//     console.log(`\t*************************************
+//     *           MENU PRINCIPAL          *
+//     *************************************\n
+//     1_Ingresar datos de máquinas.
+//     2_Lista de datos.
+//     3_Enviar Correo de informe diario.
+//     4_Enviar Correo para máquinas que requieren mantenimiento.
+//     5_Buscar máquinas por nombre de operario.\t\t\t6_SALIR\n
+// `);
