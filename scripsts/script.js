@@ -3,7 +3,7 @@
 /////////////////////////////////////////////////////////////////
 
 //Variables Globales
-let opc, cont = 0, index=0, mayora, totala, datos = false;
+let opc, cont = 0, index=0, mayor=0, mayorIndex, total=0, promedio=0, datos = false;
 
 //Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
 let registro =  [];
@@ -26,7 +26,6 @@ Seleccione una opción:`);
 
 //Función para agregar los datos de cada máquina
 function ingDat(){
-
     //Declaración del objeto vacío que contendrá las características que se quieren almacenar.
     let maquina = {};
 
@@ -41,19 +40,48 @@ function ingDat(){
 
 //Función para listar los datos cargados
 function lisDat(){
-
-    //Se utilizá el metodo JSON.stringify para convertir a texto los elementos y se puedan mostrar en pantalla
-    // alert(JSON.stringify(registro));
-    
     for (let i = 0; i < registro.length; i++) {
         alert(
-        "          Máquina\n" + registro[i].cod + ":" + "\n" +
-        "Producción:       " + registro[i].cantPro + "\n" + 
-        "Horas de Trabajo: " + registro[i].hsPro + "\n" + 
-        "Paradas Técnicas: " + registro[i].parTec + "\n" +
-        "Operario a cargo: " + registro[i].opeCar);
+        "Máquina " + registro[i].cod + ":" + "\n" +
+        "    Producción:       " + registro[i].cantPro + "\n" + 
+        "    Horas de Trabajo: " + registro[i].hsPro + "\n" + 
+        "    Paradas Técnicas: " + registro[i].parTec + "\n" +
+        "    Operario a cargo: " + registro[i].opeCar);
     }
 }
+
+//Función que muestra la mayor producción
+function mayorP(){
+    for(let i = 0; i < registro.length; i++){
+        if(registro[i].cantPro > mayor){
+            mayor = registro[i].cantPro;
+            mayorIndex = i;
+        }
+    }
+    
+}
+
+//Función que cambia el valor para la producción total y el promedio
+function totalP(){
+    total = 0;
+    for(let i = 0; i < registro.length; i++){
+        registro[i].cantPro =parseInt(registro[i].cantPro);
+        total += registro[i].cantPro;
+    }
+    promedio = total / registro.length;
+}
+
+//Función para enviar correo
+function envCor(){
+    mayorP();
+    totalP();
+    alert("Asunto: Producción del día 29/04/2023\n"+
+    "Informe: \n\n" + 
+    "La máquina que más produjo es la " + registro[mayorIndex].cod + ". El total de producción del día es de " + total + " unidades, dando un promedio de " + promedio + " unidades por máquina.\n\nSaludos Cordiales");
+}
+
+
+
 
 
 /////////////////////////////////////////////////////////////////
@@ -70,14 +98,17 @@ do{
             break;
         case 2:
             if(datos){
-            lisDat();
+                lisDat();
             }else{
-            alert("No hay datos cargados todavía");
+                alert("No hay datos cargados todavía");
             }
             break;
         case 3:
-            datos = true;
-            alert("El número elegido es el "+opc);
+            if(datos){
+                envCor();
+            }else{
+                alert("No hay datos cargados todavía");
+            }
             break;
         case 4:
             datos = true;
