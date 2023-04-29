@@ -1,19 +1,64 @@
-// Declaración de variables
-let opc, cont = 0, mayora, totala, datos = false;
+/////////////////////////////////////////////////////////////////
+//                Declaración de variables                     //
+/////////////////////////////////////////////////////////////////
 
-//Menu Principal
+//Variables Globales
+let opc, cont = 0, index=0, mayora, totala, datos = false;
+
+//Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
+let registro =  [];
+
+/////////////////////////////////////////////////////////////////
+//                Declaración de funciones                     //
+/////////////////////////////////////////////////////////////////
+
+//Función para el Menú Principal que se muestra en pantalla.
 function menu(){
-
-opc = prompt(`MENU PRINCIPAL\n
+    opc = prompt(`MENU PRINCIPAL
     1_Ingresar datos de máquinas.
     2_Lista de datos.
     3_Enviar Correo de informe diario.
     4_Enviar Correo para máquinas que requieren mantenimiento.
-    5_Buscar máquinas por nombre de operario.   6_SALIR\n
+    5_Buscar máquinas por nombre de operario.\n6_SALIR\n
 Seleccione una opción:`);
-opc = parseInt(opc);
+    opc = parseInt(opc);
 }
 
+//Función para agregar los datos de cada máquina
+function ingDat(){
+
+    //Declaración del objeto vacío que contendrá las características que se quieren almacenar.
+    let maquina = {};
+
+    maquina.cod = prompt("Codigo de máquina: \n");
+    maquina.cantPro = prompt("Ingrese cantidad de productos fabricados: \n");
+    maquina.hsPro = prompt ("Ingrese cantidad de horas de producción: \n");
+    maquina.parTec = prompt ("Ingrese cantidad de paradas técnicas: \n");
+    maquina.opeCar = prompt ("Operario a cargo: \n");
+
+    registro.push(maquina);
+}
+
+//Función para listar los datos cargados
+function lisDat(){
+
+    //Se utilizá el metodo JSON.stringify para convertir a texto los elementos y se puedan mostrar en pantalla
+    // alert(JSON.stringify(registro));
+    
+    for (let i = 0; i < registro.length; i++) {
+        alert(
+        "          Máquina\n" + registro[i].cod + ":" + "\n" +
+        "Producción:       " + registro[i].cantPro + "\n" + 
+        "Horas de Trabajo: " + registro[i].hsPro + "\n" + 
+        "Paradas Técnicas: " + registro[i].parTec + "\n" +
+        "Operario a cargo: " + registro[i].opeCar);
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////
+//                           Main                              //
+/////////////////////////////////////////////////////////////////
 do{
     //Llamamos la función menú
     menu();
@@ -21,11 +66,14 @@ do{
     switch(opc){
         case 1:
             datos = true;
-            alert("El número elegido es el "+opc);
+            ingDat();
             break;
         case 2:
-            datos = true;
-            alert("El número elegido es el "+opc);
+            if(datos){
+            lisDat();
+            }else{
+            alert("No hay datos cargados todavía");
+            }
             break;
         case 3:
             datos = true;
@@ -39,117 +87,9 @@ do{
             datos = true;
             alert("El número elegido es el "+opc);
             break;
-        case 6:
-            datos = true;
-            alert("El número elegido es el "+opc);
-            break;    
+        // case 6:
+        //     datos = true;
+        //     alert("El número elegido es el "+opc);
+        //     break;    
     }
 }while (opc != 6);
-// do{
-    // if(opc == 1){
-    //     datos = true;
-    //     console.clear();
-    //     console.log("El número es 1")
-    // };
-
-//     console.clear();
-
-//     switch(opc){
-//         case 1:
-//             console.log("El número es 1")
-//             // system("cls");
-//             // if(cont < 4){
-//             //     ingDat(vReg, FILAS, &cont);
-//             //     system("pause");
-//             // }
-//             // else{
-//             //     printf("\n Lo sentimos a cargado el n%cmero m%cximo de datos.\n\n\n\n", 163, 160);
-//             //     system("pause");
-//             // }
-//         break;
-
-//         case 2:                            //Lista
-//         console.log("El número es 2")    
-//         // system("cls");
-//             // if(datos){
-
-//             //     lisDat(vReg, FILAS, &cont);
-//             //     system("pause");
-//             // }
-//             // else{
-//             //     printf("\nEl listado esta vac%co...\n\n\n\n", 161);
-//             //     system("pause");
-//             // }
-//         break;
-
-//         case 3:
-//             console.log("El número es 3")
-//             // system("cls");
-//             // if(datos){
-//             //     mayora = mayPro(vReg, FILAS, &cont);
-//             //     totala = totPro(vReg, FILAS, &cont);
-//             //     promed = (cont < FILAS) ? totala / cont  : totala / 4.0 ;
-
-//             //     envCor(vReg, FILAS, &cont, fecha, mayora, promed, totala );
-//             //     lisDat(vReg, FILAS, &cont);
-//             //     system("pause");
-//             // }
-//             // else{
-//             //     printf("\nEl listado esta vac%co...\n\n\n\n", 161);
-//             //     system("pause");
-//             // }
-//         break;
-
-//         case 4:
-//             console.log("El número es 4")
-//             // system("cls");
-//             // if(datos){
-//             //     envMan(vReg, FILAS, &cont);
-//             //     system("pause");
-//             // }
-//             // else{
-//             //     printf("\nEl listado esta vac%co...\n\n\n\n", 161);
-//             //     system("pause");
-//             // }
-//         break;
-
-//         case 5:
-//             console.log("El número es 5")
-//             // system("cls");
-//             // if(datos){
-//             //     busMaq(vReg, FILAS, &cont);
-//             //     system("pause");
-//             // }
-//             // else{
-//             //     printf("\nEl listado esta vac%co...\n\n\n\n", 161);
-//             //     system("pause");
-//             // }
-//         break;
-
-//         case 6:                    //SALIR
-//         console.log("El número es 6")
-//         //     system("cls");
-//         //     printf("Gracias por utilizar el programa!!\nHasta luego!!\n\n\n\n");
-//         //     return 0;
-//         // break;
-
-//         // default:
-//         //     printf("Opci%cn no valida!!\n\n",162);
-//         //     system("pause");
-//     }
-// }while(opc != 6);
-
-
-
-
-
-
-//     console.log(`\t*************************************
-//     *           MENU PRINCIPAL          *
-//     *************************************\n
-//     1_Ingresar datos de máquinas.
-//     2_Lista de datos.
-//     3_Enviar Correo de informe diario.
-//     4_Enviar Correo para máquinas que requieren mantenimiento.
-//     5_Buscar máquinas por nombre de operario.\t\t\t6_SALIR\n
-// `);
