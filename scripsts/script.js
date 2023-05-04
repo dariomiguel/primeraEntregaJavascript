@@ -3,7 +3,7 @@
 /////////////////////////////////////////////////////////////////
 
 //Variables Globales
-let opc, mayor=0, mayorIndex, total=0, promedio=0, datos = false;
+let opc=0, mayor=0, mayorIndex=0, total=0, promedio=0, datos=false;
 
 //Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
 let registro =  [];
@@ -226,7 +226,6 @@ function busPar(){
 
 //Función Busquedad
 function busquedad(){
-    debugger;
     let indexBuscar = "";
     do{
         indexBuscar = prompt(`Indique de que forma quiere buscar:
@@ -259,7 +258,6 @@ function busquedad(){
     //Pasamos la variable a minúsculas para que no haya inconvenientes con la coincidencias
     }while(indexBuscar.toLowerCase() != "v");
 }
-
 
 //Función para que no avance hasta que tenga un dato cargado 
 function promptValido(mensaje) {
