@@ -193,7 +193,7 @@ function buscarPorNombre(){
         alert("Se encontraron las siguientes coincidencias: \n");
         for(let i=0; i < arrayBusqueda.length;i++){
             alert(
-            "Máquina " + registro[arrayBusqueda[ind]].codigoMaquina + ":" + "\n" +
+            "Máquina " + registro[arrayBusqueda[i]].codigoMaquina + ":" + "\n" +
             "    Producción:           " + registro[arrayBusqueda[i]].cantidadProduccion + "\n" + 
             "    Horas de Trabajo: " + registro[arrayBusqueda[i]].hsProduccion + "\n" + 
             "    Paradas Técnicas:  " + registro[arrayBusqueda[i]].paradasTecnicas + "\n" +
