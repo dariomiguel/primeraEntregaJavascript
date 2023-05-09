@@ -281,43 +281,46 @@ function promptValido(mensaje) {
 /////////////////////////////////////////////////////////////////
 //                      Menú Principal                         //
 /////////////////////////////////////////////////////////////////
-
-do{
-    //Llamamos la función menú
-    menu();
-    //Selección de opciones en el menú
-    switch(opcionMenuPrincipal){
-        case 1:
-            datos = true;
-            ingresarDatos();
-            break;
-        case 2:
-            if(datos){
-                listarDatos();
-            }else{
-                alert("No hay datos cargados todavía");
+let boton = document.getElementById("botonMenu");
+boton.addEventListener("click", respuestaClick)
+function respuestaClick(){
+        do{
+            //Llamamos la función menú
+            menu();
+            //Selección de opciones en el menú
+            switch(opcionMenuPrincipal){
+                case 1:
+                    datos = true;
+                    ingresarDatos();
+                    break;
+                case 2:
+                    if(datos){
+                        listarDatos();
+                    }else{
+                        alert("No hay datos cargados todavía");
+                    }
+                    break;
+                case 3:
+                    if(datos){
+                        enviarInformeDiario();
+                    }else{
+                        alert("No hay datos cargados todavía");
+                    }
+                    break;
+                case 4:
+                    if(datos){
+                        enviarInformeMantenimiento();
+                    }else{
+                        alert("No hay datos cargados todavía");
+                    }
+                    break;
+                case 5:
+                    if(datos){
+                        busqueda();
+                    }else{
+                        alert("No hay datos cargados todavía");
+                    }
+                    break;
             }
-            break;
-        case 3:
-            if(datos){
-                enviarInformeDiario();
-            }else{
-                alert("No hay datos cargados todavía");
-            }
-            break;
-        case 4:
-            if(datos){
-                enviarInformeMantenimiento();
-            }else{
-                alert("No hay datos cargados todavía");
-            }
-            break;
-        case 5:
-            if(datos){
-                busqueda();
-            }else{
-                alert("No hay datos cargados todavía");
-            }
-            break;
+        }while (opcionMenuPrincipal != 6);
     }
-}while (opcionMenuPrincipal != 6);

@@ -1,0 +1,18 @@
+/* El siguiente Css es usado para sobrescribir los valores predeterminados de la plantilla */
+
+
+/* Header */
+.panel-header {
+    background-color: #F4F3EF;
+    background-image: linear-gradient(115deg, #f4f3efd8 0%, #F4F3EF 90%);
+}
+
+.navbar .navbar-brand {
+    font-weight: bold;
+}
+
+/* Barra lateral*/
+.sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper{
+    padding-bottom: 0px;
+}
+
