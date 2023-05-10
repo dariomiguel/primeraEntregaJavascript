@@ -1,7 +1,10 @@
 /* El siguiente Css es usado para sobrescribir los valores predeterminados de la plantilla */
 
 
-/* Header */
+/*////////////////////////////////////////////////////////////////
+//                           Header                             //
+////////////////////////////////////////////////////////////////*/
+
 .panel-header {
     background-color: #F4F3EF;
     background-image: linear-gradient(115deg, #f4f3efd8 0%, #F4F3EF 90%);
@@ -11,8 +14,25 @@
     font-weight: bold;
 }
 
-/* Barra lateral*/
+/*////////////////////////////////////////////////////////////////
+//                      Barra Laterial                          //
+////////////////////////////////////////////////////////////////*/
+
 .sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper{
     padding-bottom: 0px;
 }
 
+.sidebar[data-color="black"]:after, .off-canvas-sidebar[data-color="black"]:after {
+    background: #0F2027;  /* Se deja un fondo por si el navegador no acepta los gradientes */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+/*////////////////////////////////////////////////////////////////
+//                      Menú Principal                          //
+////////////////////////////////////////////////////////////////*/
+
+.main-panel > .content {
+    margin-top: 0px
+}
