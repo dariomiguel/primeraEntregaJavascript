@@ -15,8 +15,22 @@
 
  */
 
+// (function() {
+//   isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+//   if (isWindows) {
+//     // if we are on windows OS we activate the perfectScrollbar function
+//     var ps = new PerfectScrollbar('.sidebar');
+//     var ps1 = new PerfectScrollbar('.sidebar-wrapper');
+//     var ps2 = new PerfectScrollbar('.main-panel');
+//     $('html').addClass('perfect-scrollbar-on');
+
+//   } else {
+//     $('html').addClass('perfect-scrollbar-off');
+//   }
+// })();
 (function() {
-  isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+  isWindows = /win/i.test(navigator.userAgent);
 
   if (isWindows) {
     // if we are on windows OS we activate the perfectScrollbar function
@@ -29,6 +43,10 @@
     $('html').addClass('perfect-scrollbar-off');
   }
 })();
+
+
+
+
 
 transparent = true;
 transparentDemo = true;
@@ -83,6 +101,7 @@ $(document).ready(function() {
   });
 });
 
+console.log("Este script Esta funcionando ")
 $(document).on('click', '.navbar-toggle', function() {
   $toggle = $(this);
 
