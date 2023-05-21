@@ -19,9 +19,14 @@ function menu(){
     2_Lista de datos
     3_Enviar Correo de informe diario
     4_Enviar Correo para máquinas que requieren mantenimiento
-    5_Buscar\n\n6_SALIR
+    5_Buscar\n\n6_SALIR o presione el botón de "Cancelar"
 Seleccione una opción:`);
-    opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
+//Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar".  
+    if(opcionMenuPrincipal === null){
+        opcionMenuPrincipal = 6;
+    }else{
+        opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
+    }
 }
 
 //Función para agregar los datos de cada máquina
@@ -281,8 +286,13 @@ function promptValido(mensaje) {
 /////////////////////////////////////////////////////////////////
 //                      Menú Principal                         //
 /////////////////////////////////////////////////////////////////
-let boton = document.getElementById("botonMenu");
-boton.addEventListener("click", respuestaClick)
+let boton = document.getElementById("botonMenuPrompt");
+
+//Modificación en la variable boton para evitar el mensajes de error.
+if (boton !== null) {
+    boton.addEventListener("click", respuestaClick);
+}
+
 function respuestaClick(){
         do{
             //Llamamos la función menú
