@@ -152,130 +152,58 @@
         <!--              Main                   -->
         <!----------------------------------------->
             <div class="content">
-                <!--Contenedor de tarjetas-->
                 <div class="row">
-                    <!-- Especificación del ancho del contenedor de la tabla -->
                     <div class="col-md-12">
-                        <!--Tarjeta de Tabla-->
                         <div class="card">
-                            <!--Header de Tabla-->
                             <div class="card-header">
-                                <h4 class="card-title"> Simple Table</h4>
+                                <h5 class="card-title">Cargar Datos</h5>
                             </div>
-                            <!--Body de Tabla-->
                             <div class="card-body">
-                                <div class="table-responsive table-container">
-                                    <table class="table">
-                                        <!--Títulos de Tabla-->
-                                        <thead class=" text-primary">
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Country</th>
-                                                <th>City</th>
-                                                <th class="text-right">Salary</th>
-                                            </tr>
-                                        </thead>
-                                        <!--Contenido de Tabla-->
-                                        <tbody>
-                                            <tr>
-                                                <td>Dakota Rice</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                                <td class="text-right">$36,738</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Minerva Hooper</td>
-                                                <td>Curaçao</td>
-                                                <td>Sinaai-Waas</td>
-                                                <td class="text-right">$23,789</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Sage Rodriguez</td>
-                                                <td>Netherlands</td>
-                                                <td>Baileux</td>
-                                                <td class="text-right">$56,142</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Philip Chaney</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                                <td class="text-right">$38,735</td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>    
+                                <div class="row">
+                                    <!-- Columna izquierda -->
+                                    <div class="col-md-6">
+                                        <!-- FECHA -->
+                                        <div class="form-group"><!--clase para que se agrupen label e inputs-->
+                                            <label for="fechaTrabajo" class="mb-2">Fecha de producción:</label>
+                                            <input type="date" id="fechaTrabajo" name="fechaTrabajo" class="form-control mb-2">
+                                        </div>
+                                        <!-- OPERARIO RESPONSABLE -->
+                                        <div class="form-group">
+                                            <label for="operarioResponsable" class="mb-2">Operario a Cargo:</label>
+                                            <input type="text" id="operarioResponsable" name="operarioResponsable" placeholder="Ingrese nombre" class="form-control mb-2">
+                                        </div>
+                                        <!-- CÓDIGO MÁQUINA -->
+                                        <div class="form-group">
+                                            <label for="codigoMaquina" class="mb-2">Código de máquina:</label>
+                                            <input type="text" id="codigoMaquina" name="codigoMaquina" placeholder="Ingrese Código" class="form-control mb-2">
+                                        </div>
+                                    </div>
+                                    <!-- Columna derecha -->
+                                    <div class="col-md-6">
+                                    <!-- CANTIDAD DE PRODUCCIÓN -->
+                                    <div class="form-group">
+                                        <label for="cantidadProduccion" class="mb-2">Cantidad de productos fabricados:</label>
+                                        <input type="text" id="cantidadProduccion" name="cantidadProduccion" placeholder="Ingrese producción" class="form-control mb-2">
+                                    </div>
+                                    <!-- HORAS DE PRODUCCIÓN -->
+                                    <div class="form-group">
+                                        <label for="hsProduccion" class="mb-2">Cantidad de horas de producción:</label>
+                                        <input type="text" id="hsProduccion" name="hsProduccion" placeholder="Ingrese hora de producción" class="form-control mb-2">
+                                    </div>
+                                    <!-- PARADAS TÉCNICAS -->
+                                    <div class="form-group">
+                                        <label for="paradasTecnicas" class="mb-2">Cantidad de paradas técnicas:</label>
+                                        <input type="text" id="paradasTecnicas" name="paradasTecnicas" placeholder="Paradas técnicas" class="form-control mb-2">
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- BOTON AGREGAR-->
+                                <input class="btn btn-primary" type="button" value="Agregar">
+                            </div>
+                            <div class="card-footer">
+                                <hr>
+                                <div class="stats">
+                                    <i class="fa fa-history"></i> Actualizado hace 3 minutos
                                 </div>
                             </div>
                         </div>
