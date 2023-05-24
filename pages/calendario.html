@@ -6,6 +6,9 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <link rel="icon" href="../img/iconoBMini.ico">
     <!--     Hoja de estilo de la plantilla     -->    
+    <!--     Formato de calendario     -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/calendar-01/css/style.css">
     <link rel="stylesheet" href="../assets/css/paper-dashboard.css">
     <!--     Fuentes y iconos de plantilla     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -114,7 +117,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#">Bienvenido!</a>
+                        <a class="navbar-brand" href="#">Calendario</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -152,165 +155,39 @@
         <!--              Main                   -->
         <!----------------------------------------->
             <div class="content">
-                <!--Contenedor de tarjetas-->
-                <div class="row">
-                    <!--Tarjeta de Producción-->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                <i class="nc-icon nc-globe text-warning"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                <p class="card-category">Capacity</p>
-                                <p class="card-title">150GB</p><p>
-                                </p></div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                            <i class="fa fa-refresh"></i>
-                            Update Now
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <!--Tarjeta de Paradas-->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5 col-md-4">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-globe text-success"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7 col-md-8">
-                                        <div class="numbers">
-                                        <p class="card-category">Capacity</p>
-                                        <p class="card-title">150GB</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer ">
-                                <hr>
-                                <div class="stats">
-                                <i class="fa fa-refresh"></i>
-                                Update Now
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Tarjeta de Hs de producción-->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                <i class="nc-icon nc-globe text-warning"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                <p class="card-category">Capacity</p>
-                                <p class="card-title">150GB</p><p>
-                                </p></div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                            <i class="fa fa-refresh"></i>
-                            Update Now
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <!--Botón para iniciar script-->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Hello, world!</h3>
-                            <button id="botonMenu">Click</button>
-                        </div>
-                    </div>
-                </div>
-                <!--Gráficos de producción-->
+                <!--Calendario-->
                 <div class="row">
                     <div class="col-md-12">
-                    <div class="card ">
-                        <div class="card-header ">
-                        <h5 class="card-title">Users Behavior</h5>
-                        <p class="card-category">24 Hours performance</p>
+                        <div class="card ">
+                            <div class="card-body ">
+                                <section class="ftco-section">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="calendar calendar-first" id="calendar_first">
+                                                <div class="calendar_header">
+                                                    <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+                                                        <h2></h2>
+                                                    <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+                                                </div>
+                                                <div class="calendar_weekdays"></div>
+                                                <div class="calendar_content"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </div>
+                            <div class="card-footer ">
+                            <hr>
+                            </div>
                         </div>
-                        <div class="card-body ">
-                        <canvas id="chartHours" width="400" height="100"></canvas>
-                        </div>
-                        <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
-                <!--Gráficos de torta-->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card ">
-                        <div class="card-header ">
-                            <h5 class="card-title">Email Statistics</h5>
-                            <p class="card-category">Last Campaign Performance</p>
-                        </div>
-                        <div class="card-body ">
-                            <canvas id="chartEmail"></canvas>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="legend">
-                            <i class="fa fa-circle text-primary"></i> Opened
-                            <i class="fa fa-circle text-warning"></i> Read
-                            <i class="fa fa-circle text-danger"></i> Deleted
-                            <i class="fa fa-circle text-gray"></i> Unopened
-                            </div>
-                            <hr>
-                            <div class="stats">
-                            <i class="fa fa-calendar"></i> Number of emails sent
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card card-chart">
-                        <div class="card-header">
-                            <h5 class="card-title">NASDAQ: AAPL</h5>
-                            <p class="card-category">Line Chart with Points</p>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="speedChart" width="400" height="100"></canvas>
-                        </div>
-                        <div class="card-footer">
-                            <div class="chart-legend">
-                            <i class="fa fa-circle text-info"></i> Tesla Model S
-                            <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                            </div>
-                            <hr>
-                            <div class="card-stats">
-                            <i class="fa fa-check"></i> Data information certified
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
             </div>
         <!----------------------------------------->
         <!--              Footer                 -->
@@ -334,6 +211,11 @@
     <!----------------------------------------->
     <!--       Scripts de plantilla          -->
     <!----------------------------------------->
+    <!--   Scripts de Calendario-->
+    <script src="../assets/calendar-01/js/jquery.min.js"></script>
+    <script src="../assets/calendar-01/js/popper.js"></script>
+    <script src="../assets/calendar-01/js/bootstrap.min.js"></script>
+    <script src="../assets/calendar-01/js/main.js"></script>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
