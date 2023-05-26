@@ -3,7 +3,7 @@
 /////////////////////////////////////////////////////////////////
 
 //Variables Globales
-let opcionMenuPrincipal=0, mayor=0, mayorIndex=0, total=0, promedio=0, datos=false;
+let opcionMenuPrincipal=0, mayor=0, indexMayorProduccion=0, total=0, promedio=0, datos=false, fechaActualTexto="";
 
 //Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
 let registro =  [];
@@ -22,11 +22,7 @@ function menu(){
     5_Buscar\n\n6_SALIR o presione el botón de "Cancelar"
 Seleccione una opción:`);
 //Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar".  
-    if(opcionMenuPrincipal === null){
-        opcionMenuPrincipal = 6;
-    }else{
-        opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
-    }
+    opcionMenuPrincipal === null ? opcionMenuPrincipal = 6 : opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
 }
 
 //Función para agregar los datos de cada máquina
@@ -45,14 +41,14 @@ function ingresarDatos(){
 
 //Función para listar los datos cargados
 function listarDatos(){
-    for (let i = 0; i < registro.length; i++) {
+    for (let elemento of registro) {
         alert(
-        "Máquina " + registro[i].codigoMaquina + ":" + "\n" +
-        "    Producción:           " + registro[i].cantidadProduccion + "\n" + 
-        "    Horas de Trabajo: " + registro[i].hsProduccion + "\n" + 
-        "    Paradas Técnicas:  " + registro[i].paradasTecnicas + "\n" +
-        "    Operario a cargo: " + registro[i].operarioResponsable);
-    }
+        "Máquina " + elemento.codigoMaquina + ":" + "\n" +
+        "    Producción:           " + elemento.cantidadProduccion + "\n" + 
+        "    Horas de Trabajo: " + elemento.hsProduccion + "\n" + 
+        "    Paradas Técnicas:  " + elemento.paradasTecnicas + "\n" +
+        "    Operario a cargo: " + elemento.operarioResponsable);
+    }    
 }
 
 //Función que calcular la mayor producción
@@ -60,36 +56,47 @@ function mayorProduccion(){
     for(let i = 0; i < registro.length; i++){
         if(registro[i].cantidadProduccion > mayor){
             mayor = registro[i].cantidadProduccion;
-            mayorIndex = i;
+            indexMayorProduccion = i;
         }
     }
-    
 }
 
 //Función que cambia el valor para la producción total y el promedio
 function produccionTotal(){
-    total = 0;  //Se resetea el valor de total, para que siempre se use el calculado, de otra forma cada vez que se llama a la función se agregará al total anterior.
-    for(let i = 0; i < registro.length; i++){
-        registro[i].cantidadProduccion = parseInt(registro[i].cantidadProduccion);
-        total += registro[i].cantidadProduccion; //Suma cada una de las produccion que realizó cada maquina y lo agrega en la variable total.
+    total = 0;  //Se resetea el valor de total, para prevenir que se calcule al valor ya existente.
+    for (let elemento of registro){
+        elemento.cantidadProduccion = parseInt(elemento.cantidadProduccion);
+        total += elemento.cantidadProduccion;//Suma cada una de las produccion que realizó cada maquina y lo agrega en la variable total.
     }
-    promedio = total / registro.length; // Se calcula el promedio total
+    return total
 }
 
-//Función para enviar correo de informe de producción diario
-function enviarInformeDiario(){
-    // Se llama a las funciones mayor producción y producción total para tener los valores de los mismos (total, promedio y Mayor producción)
-    mayorProduccion();
-    produccionTotal();
+//Función para el calculo del promedio
+function calcularPromedio() {
+    let totalProduccion = produccionTotal();
+    promedio = totalProduccion / registro.length;
+};
+
+//Función que muestra en texto la fecha del dia de hoy
+function mostrarFechaHoy(){
     //Se crea un objeto llamado fecha actual para poder extraer los dias, mes y años del día que se ejecute
     const fechaActual = new Date();  
     const dia = fechaActual.getDate();  // Se utiliza la instancia para el día 
     const mes = fechaActual.getMonth() + 1; // Se utiliza la instancia para los meses, los meses empiezan en 0, así que se suma 1
     const anio = fechaActual.getFullYear(); // Se utiliza la instancia para los años
+    fechaActualTexto = dia + "/" + mes + "/" + anio;
+}
 
-    alert("Asunto: Producción del día" + dia + "/" + mes + "/" + anio + "\n" +
-    "Informe: \n\n" + 
-    "La máquina que más produjo es la " + registro[mayorIndex].codigoMaquina + ". El total de producción del día es de " + total + " unidades, dando un promedio de " + promedio + " unidades por máquina.\n\nSaludos Cordiales");
+//Función para enviar correo de informe de producción diario
+function enviarInformeDiario(){
+    // Se llaman a las funciones para tener los valores que se colocarán en el cuerpo del mensaje (total, promedio, Mayor producción y fecha)
+    mayorProduccion();
+    produccionTotal();
+    calcularPromedio();
+    mostrarFechaHoy();
+
+    alert("Asunto: Producción del día " + fechaActualTexto + "\nInforme: \n\n" + 
+    "La máquina que más produjo es la " + registro[indexMayorProduccion].codigoMaquina + ". El total de producción del día es de " + total + " unidades, dando un promedio de " + promedio + " unidades por máquina.\n\nSaludos Cordiales");
 }
 
 //Función para enviar correo de informe de producción diario.
@@ -212,11 +219,11 @@ function buscarPorMayorProduccion(){
     mayorProduccion();
     //Reutilizando la función de mayorP, podemos obtener la posición en donde está ubicado la máquina con mayor producción.
     alert("La máquina con mayor producción fue:\n" +
-        "Máquina " + registro[mayorIndex].codigoMaquina + ":" + "\n" +
-        "    Producción:           " + registro[mayorIndex].cantidadProduccion + "\n" + 
-        "    Horas de Trabajo:  " + registro[mayorIndex].hsProduccion + "\n" + 
-        "    Paradas Técnicas:  " + registro[mayorIndex].paradasTecnicas + "\n" +
-        "    Operario a cargo:  " + registro[mayorIndex].operarioResponsable);
+        "Máquina " + registro[indexMayorProduccion].codigoMaquina + ":" + "\n" +
+        "    Producción:           " + registro[indexMayorProduccion].cantidadProduccion + "\n" + 
+        "    Horas de Trabajo:  " + registro[indexMayorProduccion].hsProduccion + "\n" + 
+        "    Paradas Técnicas:  " + registro[indexMayorProduccion].paradasTecnicas + "\n" +
+        "    Operario a cargo:  " + registro[indexMayorProduccion].operarioResponsable);
 }
 
 //Función para buscar por el mayor número de paradas.
