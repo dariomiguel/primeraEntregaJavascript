@@ -101,38 +101,27 @@ function enviarInformeDiario(){
 
 //Función para enviar correo de informe de producción diario.
 function enviarInformeMantenimiento(){
+    mostrarFechaHoy();
 
     /* Se crea una variable signoAuxiliar donde se ubicarán los valores para los strings y se crea un array de mantenimiento vacío que 
     contendrá unicamente las máquinas que necesitan mantenimiento, para que en el texto queden corectamente las comas. las 
     variables oracionAuxiliarA y oracionAuxiliarB, corresponden a las variables para que el mensaje esté en plural o no.*/  
     let signoAuxiliar = "", oracionAuxiliarA="Máquina", oracionAuxiliarB="No se presentan máquinas para", arrayMantenimiento =[];
-    const fechaActual = new Date();  
-    const dia = fechaActual.getDate(); 
-    const mes = fechaActual.getMonth() + 1;
-    const anio = fechaActual.getFullYear();
 
     //Se crea el array, rellenandolo con las máquinas que necesitan paradas técnicas
-        for(i = 0, largo = registro.length; i < largo; i++){
-        if(registro[i].paradasTecnicas > 3){
-            arrayMantenimiento.push(registro[i].codigoMaquina);
-        } 
+    for(let elemento of registro){
+        if(elemento.paradasTecnicas > 3){
+            arrayMantenimiento.push(elemento.codigoMaquina);
+        }
     }
 
     /*Creamos un string con cada una de las máquinas que necesitan mantenimiento (Las que poseen más de 3 paradas técnicas).
     y se concatenan a la variable signoAuxiliar.
     Primero corroboramos que la cantidad de máquinas para mantenimiento es distinto de cero para poder colocar correctamente
     el texto en el mensaje*/
-    if(arrayMantenimiento.length != 0){
-        signoAuxiliar = ":";
-        for(let i = 0; i < arrayMantenimiento.length; i++){
-            if(i != (arrayMantenimiento.length - 1)){                
-                signoAuxiliar += " " + String(arrayMantenimiento[i]) + ",";
-            // Colocamos de esta manera para que el último código de máquina no lleve coma. 
-            }else{
-                signoAuxiliar += " " + String(arrayMantenimiento[i]); 
-            }
-        }
-    } 
+    if(arrayMantenimiento.length !== 0){
+        signoAuxiliar = ": " + arrayMantenimiento.join(", ");
+    }
 
     //Si la función tiene uno o más máquinas, cambiará el texto del mensaje.
     switch(arrayMantenimiento.length){
@@ -143,11 +132,11 @@ function enviarInformeMantenimiento(){
             break;
         default:
             oracionAuxiliarA = "Máquinas";
-            oracionAuxiliarB = "La siguientes máquinas necesitan";
+            oracionAuxiliarB = "Las siguientes máquinas necesitan";
             break
     }
     
-    alert("Asunto: " + oracionAuxiliarA + " para mantenimiento preventivo          " + dia + "/" + mes + "/" + anio + "\n\n" +
+    alert("Asunto: " + oracionAuxiliarA + " para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
     "Informe: \n" + oracionAuxiliarB  + " mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
 }
 
