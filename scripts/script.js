@@ -39,15 +39,20 @@ function ingresarDatos(){
     registro.push(maquina);
 }
 
+//Función para listar registro
+function listarRegistro(array, indexArray){
+    alert("Máquina " + array[indexArray].codigoMaquina + ":" + "\n" +
+    "    Producción:           " + array[indexArray].cantidadProduccion + "\n" + 
+    "    Horas de Trabajo: " + array[indexArray].hsProduccion + "\n" + 
+    "    Paradas Técnicas:  " + array[indexArray].paradasTecnicas + "\n" +
+    "    Operario a cargo: " + array[indexArray].operarioResponsable);
+}  
+
 //Función para listar los datos cargados
 function listarDatos(){
     for (let elemento of registro) {
-        alert(
-        "Máquina " + elemento.codigoMaquina + ":" + "\n" +
-        "    Producción:           " + elemento.cantidadProduccion + "\n" + 
-        "    Horas de Trabajo: " + elemento.hsProduccion + "\n" + 
-        "    Paradas Técnicas:  " + elemento.paradasTecnicas + "\n" +
-        "    Operario a cargo: " + elemento.operarioResponsable);
+        let indexArray=registro.indexOf(elemento);
+        listarRegistro(registro,indexArray);
     }    
 }
 
@@ -106,7 +111,7 @@ function enviarInformeMantenimiento(){
     /* Se crea una variable signoAuxiliar donde se ubicarán los valores para los strings y se crea un array de mantenimiento vacío que 
     contendrá unicamente las máquinas que necesitan mantenimiento, para que en el texto queden corectamente las comas. las 
     variables oracionAuxiliarA y oracionAuxiliarB, corresponden a las variables para que el mensaje esté en plural o no.*/  
-    let signoAuxiliar = "", oracionAuxiliarA="Máquina", oracionAuxiliarB="No se presentan máquinas para", arrayMantenimiento =[];
+    let signoAuxiliar = "", arrayMantenimiento =[];
 
     //Se crea el array, rellenandolo con las máquinas que necesitan paradas técnicas
     for(let elemento of registro){
@@ -124,27 +129,23 @@ function enviarInformeMantenimiento(){
     }
 
     //Si la función tiene uno o más máquinas, cambiará el texto del mensaje.
-    switch(arrayMantenimiento.length){
-        case 0:
-            break;
-        case 1:
-            oracionAuxiliarB = "La siguiente máquina necesita";
-            break;
-        default:
-            oracionAuxiliarA = "Máquinas";
-            oracionAuxiliarB = "Las siguientes máquinas necesitan";
-            break
+    if(arrayMantenimiento.length === 0){
+        alert("Asunto: Máquina para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
+        "Informe: \nNo se presentan máquinas para mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
+    }else if(arrayMantenimiento.length === 1){
+        alert("Asunto: Máquina para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
+        "Informe: \nLa siguiente máquinas necesita mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
+    }else{
+        alert("Asunto: Máquinas para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
+        "Informe: \nLas siguientes máquinas necesitan mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
     }
-    
-    alert("Asunto: " + oracionAuxiliarA + " para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
-    "Informe: \n" + oracionAuxiliarB  + " mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
 }
 
 //Función para buscar según código de máquina.
 function buscarPorCodigo(){
-    let buscar="", cantidadEncontrados = 0, arrayBusqueda = [];
+    let buscar="", encontrados = false, indexBusqueda = 0, arrayBusqueda = [];
     
-    //Convertimos en un string, y lo pasasmos a mayúsculas para que no haya errores en la búsqueda
+    //Convertimos en un string, y lo pasamos a mayúsculas para que no haya errores en la búsqueda
     buscar = String(promptValido("Escriba el codigo de máquina que desea buscar")).toUpperCase();
     
     /*Busca en el array registro, la sección del código de máquina hasta encontrar coincidencias. Si existen coincidencias 
@@ -152,25 +153,21 @@ function buscarPorCodigo(){
     for(let i=0; i < registro.length; i++ ){
         if( buscar == registro[i].codigoMaquina.toUpperCase()){
             arrayBusqueda.push(i);
-            cantidadEncontrados++;
+            encontrados = true;
         }
     }
 
     /*En esta sección de la función se usa el contador de búsqueda, si es cero significa que no existieron coincidencias
     de otra forma devuelve de uno en uno, mediante alertas, el objeto alojado en la posición donde se encontró, utilizando el 
     array auxiliar de búsqueda*/
-    if (cantidadEncontrados == 0){
-        alert("No se encontraron coincidencias.");
-    }else{
+    if (encontrados){
         alert("Se encontraron las siguientes coincidencias: \n");
         for(let i=0; i < arrayBusqueda.length;i++){
-            alert(
-            "Máquina " + registro[arrayBusqueda[i]].codigoMaquina + ":" + "\n" +
-            "    Producción:           " + registro[arrayBusqueda[i]].cantidadProduccion + "\n" + 
-            "    Horas de Trabajo: " + registro[arrayBusqueda[i]].hsProduccion + "\n" + 
-            "    Paradas Técnicas:  " + registro[arrayBusqueda[i]].paradasTecnicas + "\n" +
-            "    Operario a cargo: " + registro[arrayBusqueda[i]].operarioResponsable);
+            indexBusqueda = arrayBusqueda[i];
+            listarRegistro(registro, indexBusqueda);
         }          
+    }else{
+        alert("No se encontraron coincidencias.");
     }
 }
 
@@ -179,27 +176,24 @@ function buscarPorNombre(){
     mayorProduccion();
 
     //La lógica de está función es similar a la de buscar por código.
-    let buscar="", cantidadEncontrados = 0, arrayBusqueda = [];
+    let buscar="", encontrados = false, indexBusqueda = 0, arrayBusqueda = [];
 
     buscar = String(promptValido("Escriba el nombre del operario que desea buscar"));
     for(let i=0; i < registro.length; i++ ){
         if( buscar == registro[i].operarioResponsable){
             arrayBusqueda.push(i);
-            cantidadEncontrados++;
+            encontrados = true;
         }
     }
-    if (cantidadEncontrados == 0){
-        alert("No se encontraron coincidencias.");
-    }else{
+
+    if (encontrados){
         alert("Se encontraron las siguientes coincidencias: \n");
         for(let i=0; i < arrayBusqueda.length;i++){
-            alert(
-            "Máquina " + registro[arrayBusqueda[i]].codigoMaquina + ":" + "\n" +
-            "    Producción:           " + registro[arrayBusqueda[i]].cantidadProduccion + "\n" + 
-            "    Horas de Trabajo: " + registro[arrayBusqueda[i]].hsProduccion + "\n" + 
-            "    Paradas Técnicas:  " + registro[arrayBusqueda[i]].paradasTecnicas + "\n" +
-            "    Operario a cargo: " + registro[arrayBusqueda[i]].operarioResponsable);
+            indexBusqueda = arrayBusqueda[i];
+            listarRegistro(registro, indexBusqueda);
         }          
+    }else{
+        alert("No se encontraron coincidencias.");
     }
 }
 
@@ -207,36 +201,28 @@ function buscarPorNombre(){
 function buscarPorMayorProduccion(){
     mayorProduccion();
     //Reutilizando la función de mayorP, podemos obtener la posición en donde está ubicado la máquina con mayor producción.
-    alert("La máquina con mayor producción fue:\n" +
-        "Máquina " + registro[indexMayorProduccion].codigoMaquina + ":" + "\n" +
-        "    Producción:           " + registro[indexMayorProduccion].cantidadProduccion + "\n" + 
-        "    Horas de Trabajo:  " + registro[indexMayorProduccion].hsProduccion + "\n" + 
-        "    Paradas Técnicas:  " + registro[indexMayorProduccion].paradasTecnicas + "\n" +
-        "    Operario a cargo:  " + registro[indexMayorProduccion].operarioResponsable);
+    alert("La máquina con mayor producción fue:\n");
+    listarRegistro(registro,indexMayorProduccion);
 }
 
 //Función para buscar por el mayor número de paradas.
 function buscarPorParadas(){
     mayorProduccion();
-    let auxiliar = 0, indexAuxiliar = 0;
+    let auxiliar = 0, indexBusqueda = 0;
     /*En el siguiente for escanea las propiedas del objetos parada técnica, si es mayor que auxiliar, auxiliar cambiará a ese nuevo valor
     y se guarda el indice de posición, de donde se encontró, para poder llamarlo despues en el alert.*/
     for(let i = 0; i < registro.length; i++){
         if(registro[i].paradasTecnicas > auxiliar){
             auxiliar = registro[i].paradasTecnicas;
-            indexAuxiliar = i;
+            indexBusqueda = i;
         }
     }
-    alert("La máquina con mayor número de paradas fue:\n" +
-        "Máquina   " + registro[indexAuxiliar].codigoMaquina + ":" + "\n" +
-        "    Producción:           " + registro[indexAuxiliar].cantidadProduccion + "\n" + 
-        "    Horas de Trabajo:  " + registro[indexAuxiliar].hsProduccion + "\n" + 
-        "    Paradas Técnicas:  " + registro[indexAuxiliar].paradasTecnicas + "\n" +
-        "    Operario a cargo:  " + registro[indexAuxiliar].operarioResponsable);
+    alert("La máquina con mayor número de paradas fue:\n")
+    listarRegistro(registro, indexBusqueda);
 }
 
-//Función de búsqueda
-function busqueda(){
+//Función de menú de búsqueda
+function menuBusqueda(){
     let opcionMenuBusqueda = "";
     do{
         opcionMenuBusqueda = prompt(`Indique de que forma quiere buscar:
@@ -246,6 +232,7 @@ function busqueda(){
     4_Buscar el que mayor paradas técnicas tuvo.
     
 (V)olver al menú anterior`);
+        opcionMenuBusqueda === null ? opcionMenuBusqueda = "v" : opcionMenuBusqueda = opcionMenuBusqueda.toString();
         switch(opcionMenuBusqueda){
             case "1":
                 buscarPorCodigo();
@@ -322,7 +309,7 @@ function respuestaClick(){
                     break;
                 case 5:
                     if(datos){
-                        busqueda();
+                        menuBusqueda();
                     }else{
                         alert("No hay datos cargados todavía");
                     }
