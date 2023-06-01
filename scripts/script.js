@@ -317,3 +317,32 @@ function respuestaClick(){
             }
         }while (opcionMenuPrincipal != 6);
     }
+
+/////////////////////////////////////////////////////////////////
+//               Funciones para modificar el HTML              //
+/////////////////////////////////////////////////////////////////
+
+
+
+
+function accionBtnAgregar(){
+    let fechaTrabajo = document.getElementById("fechaTrabajo");
+    let operarioResponsable = document.getElementById("operarioResponsable");
+    let codigoMaquina = document.getElementById("codigoMaquina");
+    let cantidadProduccion = document.getElementById("cantidadProduccion");
+    let hsProduccion = document.getElementById("hsProduccion");
+    let paradasTecnicas = document.getElementById("paradasTecnicas");
+    
+    
+    console.log(fechaTrabajo.value);
+    console.log(operarioResponsable.value);
+    console.log(codigoMaquina.value);
+    console.log(cantidadProduccion.value);
+    console.log(hsProduccion.value);
+    console.log(paradasTecnicas.value);
+} 
+
+//Eventos
+let btnAgregarDatos = document.getElementById("btnAgregarDatos");
+btnAgregarDatos.addEventListener("click", accionBtnAgregar);
+
