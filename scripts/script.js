@@ -325,24 +325,31 @@ function respuestaClick(){
 
 
 
-function accionBtnAgregar(){
-    let fechaTrabajo = document.getElementById("fechaTrabajo");
-    let operarioResponsable = document.getElementById("operarioResponsable");
-    let codigoMaquina = document.getElementById("codigoMaquina");
-    let cantidadProduccion = document.getElementById("cantidadProduccion");
-    let hsProduccion = document.getElementById("hsProduccion");
-    let paradasTecnicas = document.getElementById("paradasTecnicas");
-    
-    
-    console.log(fechaTrabajo.value);
-    console.log(operarioResponsable.value);
-    console.log(codigoMaquina.value);
-    console.log(cantidadProduccion.value);
-    console.log(hsProduccion.value);
-    console.log(paradasTecnicas.value);
-} 
+function accionBtnAgregar() {
+    let maquina = {
+        fechaTrabajo: document.getElementById("fechaTrabajo").value,
+        operarioResponsable: document.getElementById("operarioResponsable").value,
+        codigoMaquina: document.getElementById("codigoMaquina").value,
+        cantidadProduccion: document.getElementById("cantidadProduccion").value,
+        hsProduccion: document.getElementById("hsProduccion").value,
+        paradasTecnicas: document.getElementById("paradasTecnicas").value
+    };
+
+    registro.push(maquina);
+
+    let registroJson = JSON.stringify(registro);
+
+    localStorage.setItem("maquina", maquina)
+    localStorage.setItem("registro", registroJson)
+    console.log(registro);
+}
+
+let reseteo = () => localStorage.clear();
+
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
 btnAgregarDatos.addEventListener("click", accionBtnAgregar);
 
+let btnReset = document.getElementById("btnReset");
+btnReset.addEventListener("click",reseteo )
