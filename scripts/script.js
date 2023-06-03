@@ -6,7 +6,8 @@
 let opcionMenuPrincipal=0, mayor=0, indexMayorProduccion=0, total=0, promedio=0, datos=false, fechaActualTexto="";
 
 //Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
-let registro =  [];
+let registro =  [], registroJson =  JSON.stringify(registro);
+
 
 /////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
@@ -28,15 +29,24 @@ Seleccione una opción:`);
 //Función para agregar los datos de cada máquina
 function ingresarDatos(){
     //Declaración del objeto vacío que contendrá las características que se quieren almacenar.
-    let maquina = {};
+    
+    registroJson = localStorage.getItem("registro");
+    registro = JSON.parse(registroJson) || [];
 
-    maquina.codigoMaquina = promptValido("código de máquina: \n");
-    maquina.cantidadProduccion = promptValido("Ingrese cantidad de productos fabricados: \n");
-    maquina.hsProduccion = promptValido ("Ingrese cantidad de horas de producción: \n");
-    maquina.paradasTecnicas = promptValido ("Ingrese cantidad de paradas técnicas: \n");
-    maquina.operarioResponsable = promptValido ("Operario a cargo: \n");
+    let maquina = {
+        fechaTrabajo: promptValido("Ingrese la fecha en el siguiente formato 01/01/2000: \n"),
+        operarioResponsable: promptValido ("Operario a cargo: \n"),
+        codigoMaquina: promptValido("código de máquina: \n"),
+        cantidadProduccion: promptValido("Ingrese cantidad de productos fabricados: \n"),
+        hsProduccion: promptValido ("Ingrese cantidad de horas de producción: \n"),
+        paradasTecnicas: promptValido ("Ingrese cantidad de paradas técnicas: \n")
+    };
 
     registro.push(maquina);
+    registroJson = JSON.stringify(registro);    
+    localStorage.setItem("registro", registroJson)
+    console.log(registro);
+
 }
 
 //Función para listar registro
@@ -323,9 +333,12 @@ function respuestaClick(){
 /////////////////////////////////////////////////////////////////
 
 
-
-
 function accionBtnAgregar() {
+
+    registroJson = localStorage.getItem("registro");
+    //llenamos el contenido de "registro" con lo que posee "registroJson"
+    registro = JSON.parse(registroJson) || [];
+
     let maquina = {
         fechaTrabajo: document.getElementById("fechaTrabajo").value,
         operarioResponsable: document.getElementById("operarioResponsable").value,
@@ -337,9 +350,8 @@ function accionBtnAgregar() {
 
     registro.push(maquina);
 
-    let registroJson = JSON.stringify(registro);
+    registroJson = JSON.stringify(registro);
 
-    localStorage.setItem("maquina", maquina)
     localStorage.setItem("registro", registroJson)
     console.log(registro);
 }
