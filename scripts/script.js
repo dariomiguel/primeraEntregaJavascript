@@ -22,16 +22,27 @@ function menu(){
     4_Enviar Correo para máquinas que requieren mantenimiento
     5_Buscar\n\n6_SALIR o presione el botón de "Cancelar"
 Seleccione una opción:`);
-//Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar".  
+//Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
     opcionMenuPrincipal === null ? opcionMenuPrincipal = 6 : opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
+    
+}
+
+//Función para inicialiar los elementos del registro
+function inicilizarRegistro(){
+    registroJson = localStorage.getItem("registro");
+    //llenamos el contenido de "registro" con lo que posee "registroJson" y si está vacío que cree un array vacío.
+    registro = JSON.parse(registroJson) || [];
+}
+
+//Función para guardar en registro
+function guardarRegistro(){
+    registroJson = JSON.stringify(registro);
+    localStorage.setItem("registro", registroJson);
 }
 
 //Función para agregar los datos de cada máquina
-function ingresarDatos(){
-    //Declaración del objeto vacío que contendrá las características que se quieren almacenar.
-    
-    registroJson = localStorage.getItem("registro");
-    registro = JSON.parse(registroJson) || [];
+function ingresarDatosPrompt(){
+    inicilizarRegistro()
 
     let maquina = {
         fechaTrabajo: promptValido("Ingrese la fecha en el siguiente formato 01/01/2000: \n"),
@@ -41,12 +52,9 @@ function ingresarDatos(){
         hsProduccion: promptValido ("Ingrese cantidad de horas de producción: \n"),
         paradasTecnicas: promptValido ("Ingrese cantidad de paradas técnicas: \n")
     };
-
     registro.push(maquina);
-    registroJson = JSON.stringify(registro);    
-    localStorage.setItem("registro", registroJson)
-    console.log(registro);
 
+    guardarRegistro();
 }
 
 //Función para listar registro
@@ -294,7 +302,7 @@ function respuestaClick(){
             switch(opcionMenuPrincipal){
                 case 1:
                     datos = true;
-                    ingresarDatos();
+                    ingresarDatosPrompt();
                     break;
                 case 2:
                     if(datos){
@@ -333,11 +341,8 @@ function respuestaClick(){
 /////////////////////////////////////////////////////////////////
 
 
-function accionBtnAgregar() {
-
-    registroJson = localStorage.getItem("registro");
-    //llenamos el contenido de "registro" con lo que posee "registroJson"
-    registro = JSON.parse(registroJson) || [];
+function ingresarDatosInput() {
+    inicilizarRegistro()
 
     let maquina = {
         fechaTrabajo: document.getElementById("fechaTrabajo").value,
@@ -347,13 +352,9 @@ function accionBtnAgregar() {
         hsProduccion: document.getElementById("hsProduccion").value,
         paradasTecnicas: document.getElementById("paradasTecnicas").value
     };
-
     registro.push(maquina);
 
-    registroJson = JSON.stringify(registro);
-
-    localStorage.setItem("registro", registroJson)
-    console.log(registro);
+    guardarRegistro();
 }
 
 let reseteo = () => localStorage.clear();
@@ -361,7 +362,7 @@ let reseteo = () => localStorage.clear();
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
-btnAgregarDatos.addEventListener("click", accionBtnAgregar);
+btnAgregarDatos.addEventListener("click", ingresarDatosInput);
 
 let btnReset = document.getElementById("btnReset");
 btnReset.addEventListener("click",reseteo )
