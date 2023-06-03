@@ -58,6 +58,16 @@ function ingresarDatosPrompt(){
     guardarRegistro();
 }
 
+function verificarDatosCargados(funcion) {
+    //Se inicializa el registro para poder verificar si hay datos
+    inicilizarRegistro();
+    if (datos) {
+        funcion();
+    } else {
+        alert("No hay datos cargados todavía");
+    }
+}
+
 //Función para listar registro
 function listarRegistro(array, indexArray){
     alert("Máquina " + array[indexArray].codigoMaquina + ":" + "\n" +
@@ -304,41 +314,19 @@ function respuestaClick(){
             //Selección de opciones en el menú
             switch(opcionMenuPrincipal){
                 case 1:
-                    datos = true;
                     ingresarDatosPrompt();
                     break;
                 case 2:
-                    //Se inicializa el registro para poder verificar si hay datos
-                    inicilizarRegistro();
-                    if(datos){
-                        listarDatos();
-                    }else{
-                        alert("No hay datos cargados todavía");
-                    }
+                    verificarDatosCargados(listarDatos);
                     break;
                 case 3:
-                    //Se inicializa el registro para poder verificar si hay datos
-                    if(datos){
-                        enviarInformeDiario();
-                    }else{
-                        alert("No hay datos cargados todavía");
-                    }
+                    verificarDatosCargados(enviarInformeDiario);
                     break;
                 case 4:
-                    //Se inicializa el registro para poder verificar si hay datos
-                    if(datos){
-                        enviarInformeMantenimiento();
-                    }else{
-                        alert("No hay datos cargados todavía");
-                    }
+                    verificarDatosCargados(enviarInformeMantenimiento);
                     break;
                 case 5:
-                    //Se inicializa el registro para poder verificar si hay datos
-                    if(datos){
-                        menuBusqueda();
-                    }else{
-                        alert("No hay datos cargados todavía");
-                    }
+                    verificarDatosCargados(menuBusqueda);
                     break;
             }
         }while (opcionMenuPrincipal != 6);
@@ -370,7 +358,10 @@ let reseteo = () => localStorage.clear();
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
-btnAgregarDatos.addEventListener("click", ingresarDatosInput);
+if (boton !== null) {
+    btnAgregarDatos.addEventListener("click", ingresarDatosInput);
+}
+
 
 let btnReset = document.getElementById("btnReset");
 btnReset.addEventListener("click",reseteo )
