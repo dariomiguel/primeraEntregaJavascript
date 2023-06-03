@@ -20,7 +20,7 @@ function menu(){
     2_Lista de datos
     3_Enviar Correo de informe diario
     4_Enviar Correo para máquinas que requieren mantenimiento
-    5_Buscar\n\n6_SALIR o presione el botón de "Cancelar"
+    5_Buscar\n6_SALIR o presione el botón de "Cancelar"\n
 Seleccione una opción:`);
 //Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
     opcionMenuPrincipal === null ? opcionMenuPrincipal = 6 : opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
@@ -32,6 +32,7 @@ function inicilizarRegistro(){
     registroJson = localStorage.getItem("registro");
     //llenamos el contenido de "registro" con lo que posee "registroJson" y si está vacío que cree un array vacío.
     registro = JSON.parse(registroJson) || [];
+    datos = registro.length !== 0;  
 }
 
 //Función para guardar en registro
@@ -68,10 +69,12 @@ function listarRegistro(array, indexArray){
 
 //Función para listar los datos cargados
 function listarDatos(){
+    inicilizarRegistro()
     for (let elemento of registro) {
         let indexArray=registro.indexOf(elemento);
         listarRegistro(registro,indexArray);
     }    
+    guardarRegistro()
 }
 
 //Función que calcular la mayor producción
@@ -305,6 +308,8 @@ function respuestaClick(){
                     ingresarDatosPrompt();
                     break;
                 case 2:
+                    //Se inicializa el registro para poder verificar si hay datos
+                    inicilizarRegistro();
                     if(datos){
                         listarDatos();
                     }else{
@@ -312,6 +317,7 @@ function respuestaClick(){
                     }
                     break;
                 case 3:
+                    //Se inicializa el registro para poder verificar si hay datos
                     if(datos){
                         enviarInformeDiario();
                     }else{
@@ -319,6 +325,7 @@ function respuestaClick(){
                     }
                     break;
                 case 4:
+                    //Se inicializa el registro para poder verificar si hay datos
                     if(datos){
                         enviarInformeMantenimiento();
                     }else{
@@ -326,6 +333,7 @@ function respuestaClick(){
                     }
                     break;
                 case 5:
+                    //Se inicializa el registro para poder verificar si hay datos
                     if(datos){
                         menuBusqueda();
                     }else{
