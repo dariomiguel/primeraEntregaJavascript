@@ -41,7 +41,7 @@ function guardarRegistro(){
     localStorage.setItem("registro", registroJson);
 }
 
-//Función para agregar los datos de cada máquina
+//Función para agregar los datos del Prompt de cada máquina al registro
 function ingresarDatosPrompt(){
     inicilizarRegistro()
 
@@ -350,6 +350,25 @@ function ingresarDatosInput() {
     };
     registro.push(maquina);
 
+    // for (let key in maquina){
+    //     maquina[key].value = "";
+    // }
+    // fechaTrabajo.value="";
+    // operarioResponsable.value="";
+    // codigoMaquina.value="";
+    // cantidadProduccion.value="";
+    // hsProduccion.value="";
+    // paradasTecnicas.value="";
+//     const props = Object.keys(maquina);
+// for (let i = 0; i < props.length; i++) {
+//   const prop = props[i];
+//   maquina[prop].value = "";
+// }
+    // for (let prop in maquina) {
+    //     if (maquina.hasOwnProperty(prop)) {
+    //       maquina[prop].value = "";
+    //     }
+    //   }
     guardarRegistro();
 }
 
@@ -358,10 +377,7 @@ let reseteo = () => localStorage.clear();
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
-if (boton !== null) {
     btnAgregarDatos.addEventListener("click", ingresarDatosInput);
-}
-
 
 let btnReset = document.getElementById("btnReset");
 btnReset.addEventListener("click",reseteo )
