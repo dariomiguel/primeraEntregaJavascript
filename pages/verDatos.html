@@ -156,8 +156,9 @@
             <div class="row">
                 <!-- Especificación del ancho del contenedor de la tabla -->
                 <div class="col-md-12">
+                    <button id="btnAgregarFila" class="btn btn-outline-primary">Agregar Fila</button>
                     <!--Tarjeta de Tabla-->
-                    <div class="card">
+                    <div class="card" >
                         <!--Header de Tabla-->
                         <div class="card-header">
                             <h4 class="card-title"> Simple Table</h4>
@@ -165,113 +166,27 @@
                         <!--Body de Tabla-->
                         <div class="card-body">
                             <div class="table-responsive table-container">
-                                <table class="table">
+                                <table class="table" id="tablaRegistro">
                                     <!--Títulos de Tabla-->
                                     <thead class=" text-primary">
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Country</th>
-                                            <th>City</th>
-                                            <th class="text-right">Salary</th>
+                                            <th>Operario</th>
+                                            <th>Código</th>
+                                            <th>Producción</th>
+                                            <th>Hs Producción</th>
+                                            <th>Paradas</th>
+                                            <th>Fecha</th>
                                         </tr>
                                     </thead>
                                     <!--Contenido de Tabla-->
-                                    <tbody>
+                                    <tbody >
                                         <tr>
                                             <td>Dakota Rice</td>
                                             <td>Niger</td>
                                             <td>Oud-Turnhout</td>
-                                            <td class="text-right">$36,738</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Minerva Hooper</td>
-                                            <td>Curaçao</td>
-                                            <td>Sinaai-Waas</td>
-                                            <td class="text-right">$23,789</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sage Rodriguez</td>
-                                            <td>Netherlands</td>
-                                            <td>Baileux</td>
-                                            <td class="text-right">$56,142</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Philip Chaney</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                            <td class="text-right">$38,735</td>
+                                            <td>$36,738</td>
+                                            <td>$36,738</td>
+                                            <td>$36,738</td>
                                         </tr>
                                         
                                     </tbody>
@@ -296,12 +211,6 @@
     </div>
 
     <!----------------------------------------->
-    <!--            Mi Script                -->
-    <!----------------------------------------->
-
-    <script src="../scripts/script.js"></script>
-    
-    <!----------------------------------------->
     <!--       Scripts de plantilla          -->
     <!----------------------------------------->
     <!--   Core JS Files   -->
@@ -321,6 +230,10 @@
         <!-- Control Center for Paper Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/paper-dashboard.min.js" type="text/javascript"></script>
 
+    <!----------------------------------------->
+    <!--            Mi Script                -->
+    <!----------------------------------------->
 
+    <script src="../scripts/script.js"></script>
 </body>
 </html>
