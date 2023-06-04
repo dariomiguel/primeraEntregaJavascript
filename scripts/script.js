@@ -58,6 +58,7 @@ function ingresarDatosPrompt(){
     guardarRegistro();
 }
 
+//Verifica si hay datos cargados en el registro
 function verificarDatosCargados(funcion) {
     //Se inicializa el registro para poder verificar si hay datos
     inicilizarRegistro();
@@ -350,30 +351,16 @@ function ingresarDatosInput() {
     };
     registro.push(maquina);
 
-    // for (let key in maquina){
-    //     maquina[key].value = "";
-    // }
-    // fechaTrabajo.value="";
-    // operarioResponsable.value="";
-    // codigoMaquina.value="";
-    // cantidadProduccion.value="";
-    // hsProduccion.value="";
-    // paradasTecnicas.value="";
-//     const props = Object.keys(maquina);
-// for (let i = 0; i < props.length; i++) {
-//   const prop = props[i];
-//   maquina[prop].value = "";
-// }
-    // for (let prop in maquina) {
-    //     if (maquina.hasOwnProperty(prop)) {
-    //       maquina[prop].value = "";
-    //     }
-    //   }
+    //Borrar los elementos del input
+    for (let key in maquina) {
+        let input = document.getElementById(key);
+        input.value = "";
+    }
+
     guardarRegistro();
 }
 
 let reseteo = () => localStorage.clear();
-
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
