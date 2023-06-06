@@ -304,9 +304,7 @@ function promptValido(mensaje) {
 let boton = document.getElementById("botonMenuPrompt");
 
 //Modificación en la variable boton para evitar el mensajes de error.
-if (boton !== null) {
-    boton.addEventListener("click", respuestaClick);
-}
+boton !== null ? boton.addEventListener("click", respuestaClick) : null;
 
 function respuestaClick(){
         do{
@@ -364,7 +362,29 @@ let reseteo = () => localStorage.clear();
 
 //Eventos
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
-    btnAgregarDatos.addEventListener("click", ingresarDatosInput);
+// btnAgregarDatos.addEventListener("click", ingresarDatosInput);
+btnAgregarDatos !== null ? btnAgregarDatos.addEventListener("click", ingresarDatosInput) : null;
+
 
 let btnReset = document.getElementById("btnReset");
-btnReset.addEventListener("click",reseteo )
+// btnReset.addEventListener("click",reseteo );
+btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
+
+
+// Obtén una referencia al botón de agregar fila por su ID
+let btnAgregarFila = document.getElementById('btnAgregarFila');
+if(btnAgregarFila !== null){
+    btnAgregarFila.addEventListener('click', function() {
+        let tablaRegistro = document.getElementById('tablaRegistro');
+        let fila = tablaRegistro.insertRow();
+    
+        // Array con el contenido para cada celda
+        let contenidoCeldas = ['Nuevo Operario', 'Nuevo Código', 'Nueva Producción', 'Nuevas Hs Producción', 'Nuevas Paradas', 'Nueva Fecha'];
+    
+        // Iterar sobre el array y crear una celda para cada elemento
+        for (let i = 0; i < contenidoCeldas.length; i++) {
+        let celda = fila.insertCell();
+        celda.innerHTML = contenidoCeldas[i];
+        }
+    });
+}
