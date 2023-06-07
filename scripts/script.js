@@ -13,7 +13,7 @@ let registro =  [], registroJson =  JSON.stringify(registro);
 //                Declaración de funciones                     //
 /////////////////////////////////////////////////////////////////
 
-//Función para el Menú Principal que se muestra en pantalla.
+//Función para el Menú Principal prompt.
 function menu(){
     opcionMenuPrincipal = prompt(`MENU PRINCIPAL
     1_Ingresar datos de máquinas
@@ -22,7 +22,7 @@ function menu(){
     4_Enviar Correo para máquinas que requieren mantenimiento
     5_Buscar\n6_SALIR o presione el botón de "Cancelar"\n
 Seleccione una opción:`);
-//Se edito esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
+//Se editó esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
     opcionMenuPrincipal === null ? opcionMenuPrincipal = 6 : opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
     
 }
@@ -62,11 +62,7 @@ function ingresarDatosPrompt(){
 function verificarDatosCargados(funcion) {
     //Se inicializa el registro para poder verificar si hay datos
     inicilizarRegistro();
-    if (datos) {
-        funcion();
-    } else {
-        alert("No hay datos cargados todavía");
-    }
+    datos ? funcion():alert("No hay datos cargados todavía");
 }
 
 //Función para listar registro
@@ -332,21 +328,24 @@ function respuestaClick(){
     }
 
 /////////////////////////////////////////////////////////////////
-//               Funciones para modificar el HTML              //
+//               Metodos para manipular el HTML                //
 /////////////////////////////////////////////////////////////////
 
+//Se creo una función que colocando un array con los id, devuelve los valores del objeto
+function obtenerValores(ids) {
+    let valores = {};
+    for (let id of ids) {
+    valores[id] = document.getElementById(id).value;
+    }
+    return valores;
+}
 
+//Función para obtener los valores del input
 function ingresarDatosInput() {
-    inicilizarRegistro()
+    inicilizarRegistro();
 
-    let maquina = {
-        fechaTrabajo: document.getElementById("fechaTrabajo").value,
-        operarioResponsable: document.getElementById("operarioResponsable").value,
-        codigoMaquina: document.getElementById("codigoMaquina").value,
-        cantidadProduccion: document.getElementById("cantidadProduccion").value,
-        hsProduccion: document.getElementById("hsProduccion").value,
-        paradasTecnicas: document.getElementById("paradasTecnicas").value
-    };
+    let ids = ["fechaTrabajo", "operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProduccion", "paradasTecnicas"];
+    let maquina = obtenerValores(ids);
     registro.push(maquina);
 
     //Borrar los elementos del input
@@ -358,16 +357,19 @@ function ingresarDatosInput() {
     guardarRegistro();
 }
 
+//Función para resetear valores del local storage
 let reseteo = () => localStorage.clear();
 
-//Eventos
+/////////////////////////////////////////////////////////////////
+//                           Eventos                           //
+/////////////////////////////////////////////////////////////////
+
+//Botón para agregar los datos del input
 let btnAgregarDatos = document.getElementById("btnAgregarDatos");
-// btnAgregarDatos.addEventListener("click", ingresarDatosInput);
 btnAgregarDatos !== null ? btnAgregarDatos.addEventListener("click", ingresarDatosInput) : null;
 
-
+//Botón para resetear los datos
 let btnReset = document.getElementById("btnReset");
-// btnReset.addEventListener("click",reseteo );
 btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
 
 
