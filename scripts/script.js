@@ -8,6 +8,8 @@ let opcionMenuPrincipal=0, mayor=0, indexMayorProduccion=0, total=0, promedio=0,
 //Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
 let registro =  [], registroJson =  JSON.stringify(registro);
 
+//Nombre de las ID que se utilizan en la table
+let ids = ["operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProduccion", "paradasTecnicas", "fechaTrabajo"];
 
 /////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
@@ -340,11 +342,19 @@ function obtenerValores(ids) {
     return valores;
 }
 
+//Función para sacar del objeto los valorres y convertirlo en un array
+function valoresArray(objeto){
+    let array = [];
+    for (let key in objeto){
+        array.push(objeto[key])  
+    }
+    return array
+}
+
 //Función para obtener los valores del input
 function ingresarDatosInput() {
     inicilizarRegistro();
 
-    let ids = ["fechaTrabajo", "operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProduccion", "paradasTecnicas"];
     let maquina = obtenerValores(ids);
     registro.push(maquina);
 
@@ -376,17 +386,19 @@ btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
 // Obtén una referencia al botón de agregar fila por su ID
 let btnAgregarFila = document.getElementById('btnAgregarFila');
 if(btnAgregarFila !== null){
+    //Botón para agregar filas
     btnAgregarFila.addEventListener('click', function() {
         let tablaRegistro = document.getElementById('tablaRegistro');
         let fila = tablaRegistro.insertRow();
     
         // Array con el contenido para cada celda
-        let contenidoCeldas = ['Nuevo Operario', 'Nuevo Código', 'Nueva Producción', 'Nuevas Hs Producción', 'Nuevas Paradas', 'Nueva Fecha'];
+        inicilizarRegistro();
+        let contenidoCeldas = valoresArray(registro[0])
     
         // Iterar sobre el array y crear una celda para cada elemento
         for (let i = 0; i < contenidoCeldas.length; i++) {
-        let celda = fila.insertCell();
-        celda.innerHTML = contenidoCeldas[i];
+            let celda = fila.insertCell();
+            celda.innerHTML = contenidoCeldas[i];
         }
     });
 }
