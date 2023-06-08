@@ -367,6 +367,25 @@ function ingresarDatosInput() {
     guardarRegistro();
 }
 
+//Función agregar filas en tabla de registro
+function agregarFila() {
+    inicilizarRegistro();
+    //Agregamos la tabla como variable a usar
+    let tablaRegistro = document.getElementById('tablaRegistro');
+    //Agregamos un for para que agregue una fila por cada cantidad de objetos que tenemos 
+    for(let j = 0; j < registro.length; j++){
+        //Insertamos una fila nueva en la tabla existente
+        let fila = tablaRegistro.insertRow();
+        // Array con el contenido para cada celda
+        let contenidoCeldas = valoresArray(registro[j])
+        // Iterar sobre el array y crear una celda para cada elemento
+        for (let i = 0; i < contenidoCeldas.length; i++) {
+            let celda = fila.insertCell();
+            celda.innerHTML = contenidoCeldas[i];
+        }
+    }
+}
+
 //Función para resetear valores del local storage
 let reseteo = () => localStorage.clear();
 
@@ -382,23 +401,7 @@ btnAgregarDatos !== null ? btnAgregarDatos.addEventListener("click", ingresarDat
 let btnReset = document.getElementById("btnReset");
 btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
 
-
-// Obtén una referencia al botón de agregar fila por su ID
-let btnAgregarFila = document.getElementById('btnAgregarFila');
-if(btnAgregarFila !== null){
-    //Botón para agregar filas
-    btnAgregarFila.addEventListener('click', function() {
-        let tablaRegistro = document.getElementById('tablaRegistro');
-        let fila = tablaRegistro.insertRow();
-    
-        // Array con el contenido para cada celda
-        inicilizarRegistro();
-        let contenidoCeldas = valoresArray(registro[0])
-    
-        // Iterar sobre el array y crear una celda para cada elemento
-        for (let i = 0; i < contenidoCeldas.length; i++) {
-            let celda = fila.insertCell();
-            celda.innerHTML = contenidoCeldas[i];
-        }
-    });
-}
+//Evento para agregar filas a la tabla de ver datos con los datos cargados en el registro cuando carga la página
+document.addEventListener("DOMContentLoaded", function() {
+    agregarFila();
+});
