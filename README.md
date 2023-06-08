@@ -1,3 +1,6 @@
+# terceraEntregaJavascript
+En esta tercer entrega, se utilizó el manejo de DOM y de local storage, para utilizar los datos cargados en los registros cargados manualmente.
+
 # segundaEntregaJavascript
 La segunda entrega se enfoca en mejorar el aspecto estético de la página, utilizando la plantilla "Paper Dashboard" de Creative Tim. También se agregaron funciones de orden superior y se aplicaron conceptos aprendidos en clases recientes.
 
