@@ -297,8 +297,10 @@ function promptValido(mensaje) {
 }
 
 /////////////////////////////////////////////////////////////////
-//                      Menú Principal                         //
+//                  Menú Principal Prompt                      //
 /////////////////////////////////////////////////////////////////
+
+
 let boton = document.getElementById("botonMenuPrompt");
 
 //Modificación en la variable boton para evitar el mensajes de error.
@@ -333,16 +335,22 @@ function respuestaClick(){
 //               Metodos para manipular el HTML                //
 /////////////////////////////////////////////////////////////////
 
-//Se creo una función que colocando un array con los id, devuelve los valores del objeto
+//Función que colocando un array con los id, devuelve los valores del objeto
 function obtenerValores(ids) {
     let valores = {};
     for (let id of ids) {
     valores[id] = document.getElementById(id).value;
     }
+    //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
+    valores.operarioResponsable = valores.operarioResponsable.charAt(0).toUpperCase()+valores.operarioResponsable.slice(1).toLowerCase();
+
+    while(valores.operarioResponsable.length < 10){
+        valores.operarioResponsable += " ";
+    }
     return valores;
 }
 
-//Función para sacar del objeto los valorres y convertirlo en un array
+//Función para sacar del objeto los valores y convertirlo en un array
 function valoresArray(objeto){
     let array = [];
     for (let key in objeto){
@@ -367,12 +375,12 @@ function ingresarDatosInput() {
     guardarRegistro();
 }
 
-//Función agregar filas en tabla de registro
+//Función agregar filas en tabla de registro con el contenido del input
 function agregarFila() {
     inicilizarRegistro();
     //Agregamos la tabla como variable a usar
     let tablaRegistro = document.getElementById('tablaRegistro');
-    //Agregamos un for para que agregue una fila por cada cantidad de objetos que tenemos 
+    //Agregamos un for con el tamaño igual a la cantidad de objetos que tenemos que guardar
     for(let j = 0; j < registro.length; j++){
         //Insertamos una fila nueva en la tabla existente
         let fila = tablaRegistro.insertRow();
@@ -384,6 +392,21 @@ function agregarFila() {
             celda.innerHTML = contenidoCeldas[i];
         }
     }
+}
+
+function ordernarLista (propiedad) {
+    inicilizarRegistro();
+    for(let i = 0; i < registro.length -1; i++){
+        for (let j = i + 1; j < registro.length; j++){
+            if (registro[i][propiedad] > registro[j][propiedad]){
+                let aux = registro[i];
+                registro[i] = registro[j];
+                registro[j] = aux;
+            }
+        }
+    }
+    guardarRegistro(); 
+    agregarFila();
 }
 
 //Función para resetear valores del local storage
@@ -405,3 +428,46 @@ btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
 document.addEventListener("DOMContentLoaded", function() {
     agregarFila();
 });
+
+
+//Botones para ordenar la lista
+//Alfabeticamente por nombre de operario
+let btnOrdenarOperarioResponsable = document.getElementById("btnOrdenarOperarioResponsable");
+btnOrdenarOperarioResponsable !== null ? btnOrdenarOperarioResponsable.addEventListener("click", function(){
+    ordernarLista('operarioResponsable');
+    location.reload();
+}) : null;
+
+//Alfabeticamente por codigo de máquina
+let btnOrdenarCodigo = document.getElementById("btnOrdenarCodigo");
+btnOrdenarCodigo !== null ? btnOrdenarCodigo.addEventListener("click", function(){
+    ordernarLista('codigoMaquina');
+    location.reload();
+}) : null;
+
+//Numericamente por cantidad de producción
+let btnOrdenarProduccion = document.getElementById("btnOrdenarProduccion");
+btnOrdenarProduccion !== null ? btnOrdenarProduccion.addEventListener("click", function(){
+    ordernarLista('cantidadProduccion');
+    location.reload();
+}) : null;
+
+//Numericamente por cantidad de horas de producción
+let btnOrdenarHsProduccion = document.getElementById("btnOrdenarHsProduccion");
+btnOrdenarHsProduccion !== null ? btnOrdenarHsProduccion.addEventListener("click", function(){
+    ordernarLista('hsProduccion');
+    location.reload();
+}) : null;
+
+//Numericamente por orden cantidad de producción
+let btnOrdenarParadas = document.getElementById("btnOrdenarParadas");
+btnOrdenarParadas !== null ? btnOrdenarParadas.addEventListener("click", function(){
+    ordernarLista('paradasTecnicas');
+    location.reload();
+}) : null;
+
+let btnOrdenarFecha = document.getElementById("btnOrdenarFecha");
+btnOrdenarFecha !== null ? btnOrdenarFecha.addEventListener("click", function(){
+    ordernarLista('fechaTrabajo');
+    location.reload();
+}) : null;
