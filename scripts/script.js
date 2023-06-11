@@ -343,10 +343,8 @@ function obtenerValores(ids) {
     }
     //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
     valores.operarioResponsable = valores.operarioResponsable.charAt(0).toUpperCase()+valores.operarioResponsable.slice(1).toLowerCase();
-
-    while(valores.operarioResponsable.length < 10){
-        valores.operarioResponsable += " ";
-    }
+    //Convertimos los valores de los codigos de máquinas 
+    valores.codigoMaquina = valores.codigoMaquina.toUpperCase();
     return valores;
 }
 
@@ -379,7 +377,7 @@ function ingresarDatosInput() {
 function agregarFila() {
     inicilizarRegistro();
     //Agregamos la tabla como variable a usar
-    let tablaRegistro = document.getElementById('tablaRegistro');
+    let tablaRegistro = document.getElementById("tablaRegistro");
     //Agregamos un for con el tamaño igual a la cantidad de objetos que tenemos que guardar
     for(let j = 0; j < registro.length; j++){
         //Insertamos una fila nueva en la tabla existente
@@ -396,22 +394,57 @@ function agregarFila() {
 
 function ordernarLista (propiedad) {
     inicilizarRegistro();
-    for(let i = 0; i < registro.length -1; i++){
-        for (let j = i + 1; j < registro.length; j++){
-            if (registro[i][propiedad] > registro[j][propiedad]){
-                let aux = registro[i];
-                registro[i] = registro[j];
-                registro[j] = aux;
+    //Variable para invertir los valores de la tabla sin que desaparezca cuando se refresca la pantalla
+    let inversorGuardado = localStorage.getItem("inversor")
+    //Si es distinto significa que fue presionado una sola vez
+    if (propiedad !== inversorGuardado){    
+        // En la lógica excluimos a quienes queremos tratar como texto
+        if (propiedad === "operarioResponsable" || propiedad === "codigoMaquina"|| propiedad === "fechaTrabajo"){
+            //Se crea un ordenador para mover de lugar los elementos del registro, utilzando una variable auxiliar donde guardamos los objetos
+            for(let i = 0; i < registro.length -1; i++){
+                for (let j = i + 1; j < registro.length; j++){
+                    if (registro[i][propiedad] > registro[j][propiedad]){
+                        let aux = registro[i];
+                        registro[i] = registro[j];
+                        registro[j] = aux;
+                    }
+                }
             }
+            localStorage.setItem("inversor", propiedad);
+        }else{
+            for(let i = 0; i < registro.length -1; i++){
+                for (let j = i + 1; j < registro.length; j++){
+                    if (parseInt( registro[i][propiedad]) > parseInt(registro[j][propiedad])){
+                        let aux = registro[i];
+                        registro[i] = registro[j];
+                        registro[j] = aux;
+                    }
+                }
+            }
+            localStorage.setItem("inversor", propiedad);
         }
+    //lógica para invertir la tabla
+    }else{
+        registro = [...registro].reverse();
+        localStorage.setItem("inversor", "variableDiferente");
     }
     guardarRegistro(); 
     agregarFila();
+    return inversorGuardado
 }
 
 //Función para resetear valores del local storage
 let reseteo = () => localStorage.clear();
 
+//Función para crear eventos para los botones de ordenamiento de la lista
+function crearEventoBoton(boton, propiedad){
+    if(boton !== null){
+        boton.addEventListener("click", function(){
+            ordernarLista(propiedad);
+            location.reload();
+        });
+    }
+}
 /////////////////////////////////////////////////////////////////
 //                           Eventos                           //
 /////////////////////////////////////////////////////////////////
@@ -429,45 +462,17 @@ document.addEventListener("DOMContentLoaded", function() {
     agregarFila();
 });
 
-
 //Botones para ordenar la lista
+
 //Alfabeticamente por nombre de operario
-let btnOrdenarOperarioResponsable = document.getElementById("btnOrdenarOperarioResponsable");
-btnOrdenarOperarioResponsable !== null ? btnOrdenarOperarioResponsable.addEventListener("click", function(){
-    ordernarLista('operarioResponsable');
-    location.reload();
-}) : null;
-
+crearEventoBoton(document.getElementById("btnOrdenarOperarioResponsable"),"operarioResponsable");
 //Alfabeticamente por codigo de máquina
-let btnOrdenarCodigo = document.getElementById("btnOrdenarCodigo");
-btnOrdenarCodigo !== null ? btnOrdenarCodigo.addEventListener("click", function(){
-    ordernarLista('codigoMaquina');
-    location.reload();
-}) : null;
-
+crearEventoBoton(document.getElementById("btnOrdenarCodigo"),"codigoMaquina");
 //Numericamente por cantidad de producción
-let btnOrdenarProduccion = document.getElementById("btnOrdenarProduccion");
-btnOrdenarProduccion !== null ? btnOrdenarProduccion.addEventListener("click", function(){
-    ordernarLista('cantidadProduccion');
-    location.reload();
-}) : null;
-
+crearEventoBoton(document.getElementById("btnOrdenarProduccion"),"cantidadProduccion");
 //Numericamente por cantidad de horas de producción
-let btnOrdenarHsProduccion = document.getElementById("btnOrdenarHsProduccion");
-btnOrdenarHsProduccion !== null ? btnOrdenarHsProduccion.addEventListener("click", function(){
-    ordernarLista('hsProduccion');
-    location.reload();
-}) : null;
-
+crearEventoBoton(document.getElementById("btnOrdenarHsProduccion"),"hsProduccion");
 //Numericamente por orden cantidad de producción
-let btnOrdenarParadas = document.getElementById("btnOrdenarParadas");
-btnOrdenarParadas !== null ? btnOrdenarParadas.addEventListener("click", function(){
-    ordernarLista('paradasTecnicas');
-    location.reload();
-}) : null;
-
-let btnOrdenarFecha = document.getElementById("btnOrdenarFecha");
-btnOrdenarFecha !== null ? btnOrdenarFecha.addEventListener("click", function(){
-    ordernarLista('fechaTrabajo');
-    location.reload();
-}) : null;
+crearEventoBoton(document.getElementById("btnOrdenarParadas"),"paradasTecnicas");
+//Numericamente por fecha
+crearEventoBoton(document.getElementById("btnOrdenarFecha"),"fechaTrabajo");
