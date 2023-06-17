@@ -164,17 +164,17 @@
                                         <!-- FECHA -->
                                         <div class="form-group"><!--clase para que se agrupen label e inputs-->
                                             <label for="fechaTrabajo" class="mb-2">Fecha de producción:</label>
-                                            <input type="date" id="fechaTrabajo" name="fechaTrabajo" class="form-control mb-2">
+                                            <input type="date" id="fechaTrabajo" name="fechaTrabajo" class="form-control mb-2" required>
                                         </div>
                                         <!-- OPERARIO RESPONSABLE -->
                                         <div class="form-group">
                                             <label for="operarioResponsable" class="mb-2">Operario a Cargo:</label>
-                                            <input type="text" id="operarioResponsable" name="operarioResponsable" placeholder="Ingrese nombre" maxlength="10" class="form-control mb-2">
+                                            <input type="text" id="operarioResponsable" name="operarioResponsable" placeholder="Ingrese nombre" maxlength="10" class="form-control mb-2"required>
                                         </div>
                                         <!-- CÓDIGO MÁQUINA -->
                                         <div class="form-group">
                                             <label for="codigoMaquina" class="mb-2">Código de máquina:</label>
-                                            <input type="text" id="codigoMaquina" name="codigoMaquina" placeholder="Ingrese Código" class="form-control mb-2">
+                                            <input type="text" id="codigoMaquina" name="codigoMaquina" placeholder="Ingrese Código" class="form-control mb-2" required>
                                         </div>
                                     </div>
                                     <!-- Columna derecha -->
@@ -182,22 +182,22 @@
                                     <!-- CANTIDAD DE PRODUCCIÓN -->
                                     <div class="form-group">
                                         <label for="cantidadProduccion" class="mb-2">Cantidad de productos fabricados:</label>
-                                        <input type="number" class="form-control mb-2" id="cantidadProduccion" name="cantidadProduccion" placeholder="Ingrese producción"  min="1" max="100" step="1" value="1">
+                                        <input type="number" class="form-control mb-2" id="cantidadProduccion" name="cantidadProduccion" placeholder="Ingrese producción"  min="1" max="100" step="1" value="1" required>
                                     </div>
                                     <!-- HORAS DE PRODUCCIÓN -->
                                     <div class="form-group">
                                         <label for="hsProduccion" class="mb-2">Cantidad de horas de producción:</label>
-                                        <input type="number" class="form-control mb-2" id="hsProduccion" name="hsProduccion" placeholder="Ingrese hora de producción" min="1" max="24" step="1" value="1">
+                                        <input type="number" class="form-control mb-2" id="hsProduccion" name="hsProduccion" placeholder="Ingrese hora de producción" min="1" max="24" step="1" value="1" required>
                                     </div>
                                     <!-- PARADAS TÉCNICAS -->
                                     <div class="form-group">
                                         <label for="paradasTecnicas" class="mb-2">Cantidad de paradas técnicas:</label>
-                                        <input type="number" class="form-control mb-2" id="paradasTecnicas" name="paradasTecnicas" placeholder="Paradas técnicas"  min="0" max="150" step="1" value="0">
+                                        <input type="number" class="form-control mb-2" id="paradasTecnicas" name="paradasTecnicas" placeholder="Paradas técnicas"  min="0" max="150" step="1" value="0" required>
                                     </div>
                                     </div>
                                 </div>
                                 <!-- BOTON AGREGAR-->
-                                <input id="btnAgregarDatos" class="btn btn-primary" type="button" value="Agregar">
+                                <input id="btnAgregarDatos" class="btn btn-primary" type="submit" value="Agregar">
                                 <input id="btnReset" class="btn btn-primary" type="button" value="Reset">
                                 <p>Si quiere agregar datos presione agregar y podra verlo en la lista, si quiere eliminar los datos del localStorage presione reset</p>
                             </div>

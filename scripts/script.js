@@ -12,6 +12,19 @@ let registro =  [], registroJson =  JSON.stringify(registro);
 let ids = ["operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProduccion", "paradasTecnicas", "fechaTrabajo"];
 
 /////////////////////////////////////////////////////////////////
+//        Declaración de clase Constructora de objetos         //
+/////////////////////////////////////////////////////////////////
+
+let elementoRegistro = {
+    operarioResponsable : "",
+    codigoMaquina : "",
+    cantidadProduccion : "",
+    hsProduccion : "",
+    paradasTecnicas : "" ,
+    fechaTrabajo : ""
+}
+
+/////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
 /////////////////////////////////////////////////////////////////
 
@@ -339,13 +352,22 @@ function respuestaClick(){
 function obtenerValores(ids) {
     let valores = {};
     for (let id of ids) {
-    valores[id] = document.getElementById(id).value;
-    }
+        //Crea un objeto por cada una de las ids enviadas a comprobar
+        valores[id] = document.getElementById(id).value;
+        }
     //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
     valores.operarioResponsable = valores.operarioResponsable.charAt(0).toUpperCase()+valores.operarioResponsable.slice(1).toLowerCase();
     //Convertimos los valores de los codigos de máquinas 
     valores.codigoMaquina = valores.codigoMaquina.toUpperCase();
-    return valores;
+
+// Verificar que todos los campos no estén vacíos
+for (let id in valores) {
+    if (valores[id] === "") { 
+        alert("El elemento no puede estar vacío");
+        break;
+    }
+}
+return valores
 }
 
 //Función para sacar del objeto los valores y convertirlo en un array
@@ -360,11 +382,20 @@ function valoresArray(objeto){
 //Función para obtener los valores del input
 function ingresarDatosInput() {
     inicilizarRegistro();
-
+    let CompobarValores = "Contiene valores"
     let maquina = obtenerValores(ids);
-    registro.push(maquina);
+    //comprobamos que los valores del objeto no est´n vacios antes de agregarlos al array
+    for (let valores in maquina) {
+        if (!(maquina[valores] === "")) { 
+            CompobarValores = "vacio";
+        }
+    }
+    CompobarValores === "vacio" ? null : registro.push(maquina);
+
+    
 
     //Borrar los elementos del input
+    //////REEMPLZAr por opción que indique que no puede haber duplicados
     for (let key in maquina) {
         let input = document.getElementById(key);
         input.value = "";
