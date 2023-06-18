@@ -15,14 +15,40 @@ let ids = ["operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProd
 //        Declaración de clase Constructora de objetos         //
 /////////////////////////////////////////////////////////////////
 
-let elementoRegistro = {
-    operarioResponsable : "",
-    codigoMaquina : "",
-    cantidadProduccion : "",
-    hsProduccion : "",
-    paradasTecnicas : "" ,
-    fechaTrabajo : ""
+class maquina {
+    constructor(operarioResponsable, codigoMaquina, cantidadProduccion, hsProduccion, paradasTecnicas, fechaTrabajo, contenido){
+        this.operarioResponsable = operarioResponsable;
+        this.codigoMaquina = codigoMaquina;
+        this.cantidadProduccion = cantidadProduccion;
+        this.hsProduccion = hsProduccion;
+        this.paradasTecnicas = paradasTecnicas;
+        this.fechaTrabajo = fechaTrabajo;
+        //Verificar si tiene valores cargados
+        this.contenido = contenido;
+    }
+    //Metodo para obtener los valores mediante los inputs
+    getInputs() {
+        this.operarioResponsable = document.getElementById("operarioResponsable").value;
+        this.codigoMaquina = document.getElementById("codigoMaquina").value;
+        this.cantidadProduccion = document.getElementById("cantidadProduccion").value;
+        this.hsProduccion = document.getElementById("hsProduccion").value;
+        this.paradasTecnicas = document.getElementById("paradasTecnicas").value;
+        this.fechaTrabajo = document.getElementById("fechaTrabajo").value;
+        this.contenido = true;
+    }
+    //Metodo que verifica que no exista un elemeento vacío
+    verificarDatosVacios(){
+        for(let key in this){
+            if (this.hasOwnProperty(key)) {
+                this[key] === "" ? this.contenido = false : null;
+            }
+        }
+    }
 }
+
+/////////////////////////////////////////////////////////////////
+//   Declaración de objetos predeterminado para pruebas        //
+/////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
@@ -36,14 +62,13 @@ function menu(){
     3_Enviar Correo de informe diario
     4_Enviar Correo para máquinas que requieren mantenimiento
     5_Buscar\n6_SALIR o presione el botón de "Cancelar"\n
-Seleccione una opción:`);
-//Se editó esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
+    Seleccione una opción:`);
+    //Se editó esta parte de la función para poder cerrar el menú, con el boton "Cancelar", si es nulo devuelve 6 para poder cerrar la ventana  
     opcionMenuPrincipal === null ? opcionMenuPrincipal = 6 : opcionMenuPrincipal = parseInt(opcionMenuPrincipal);
-    
 }
 
 //Función para inicialiar los elementos del registro
-function inicilizarRegistro(){
+function inicializarRegistro(){
     registroJson = localStorage.getItem("registro");
     //llenamos el contenido de "registro" con lo que posee "registroJson" y si está vacío que cree un array vacío.
     registro = JSON.parse(registroJson) || [];
@@ -58,7 +83,7 @@ function guardarRegistro(){
 
 //Función para agregar los datos del Prompt de cada máquina al registro
 function ingresarDatosPrompt(){
-    inicilizarRegistro()
+    inicializarRegistro()
 
     let maquina = {
         fechaTrabajo: promptValido("Ingrese la fecha en el siguiente formato 01/01/2000: \n"),
@@ -76,7 +101,7 @@ function ingresarDatosPrompt(){
 //Verifica si hay datos cargados en el registro
 function verificarDatosCargados(funcion) {
     //Se inicializa el registro para poder verificar si hay datos
-    inicilizarRegistro();
+    inicializarRegistro();
     datos ? funcion():alert("No hay datos cargados todavía");
 }
 
@@ -91,7 +116,7 @@ function listarRegistro(array, indexArray){
 
 //Función para listar los datos cargados
 function listarDatos(){
-    inicilizarRegistro()
+    inicializarRegistro()
     for (let elemento of registro) {
         let indexArray=registro.indexOf(elemento);
         listarRegistro(registro,indexArray);
@@ -348,68 +373,55 @@ function respuestaClick(){
 //               Metodos para manipular el HTML                //
 /////////////////////////////////////////////////////////////////
 
-//Función que colocando un array con los id, devuelve los valores del objeto
-function obtenerValores(ids) {
-    let valores = {};
-    for (let id of ids) {
-        //Crea un objeto por cada una de las ids enviadas a comprobar
-        valores[id] = document.getElementById(id).value;
-        }
-    //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
-    valores.operarioResponsable = valores.operarioResponsable.charAt(0).toUpperCase()+valores.operarioResponsable.slice(1).toLowerCase();
-    //Convertimos los valores de los codigos de máquinas 
-    valores.codigoMaquina = valores.codigoMaquina.toUpperCase();
+// //Función que colocando un array con los id, devuelve los valores del objeto
+// function obtenerValores(ids) {
+//     let valores = {};
+//     for (let id of ids) {
+//         //Crea un objeto por cada una de las ids enviadas a comprobar
+//         valores[id] = document.getElementById(id).value;
+//         }
+//     //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
+//     valores.operarioResponsable = valores.operarioResponsable.charAt(0).toUpperCase()+valores.operarioResponsable.slice(1).toLowerCase();
+//     //Convertimos los valores de los codigos de máquinas 
+//     valores.codigoMaquina = valores.codigoMaquina.toUpperCase();
 
-// Verificar que todos los campos no estén vacíos
-for (let id in valores) {
-    if (valores[id] === "") { 
-        alert("El elemento no puede estar vacío");
-        break;
-    }
-}
-return valores
-}
+// // Verificar que todos los campos no estén vacíos
+// for (let id in valores) {
+//     if (valores[id] === "") { 
+//         alert("El elemento no puede estar vacío");
+//         break;
+//     }
+// }
+// return valores
+// }
 
 //Función para sacar del objeto los valores y convertirlo en un array
 function valoresArray(objeto){
     let array = [];
     for (let key in objeto){
-        array.push(objeto[key])  
+        key !== 'contenido' ? array.push(objeto[key]) : null;
     }
     return array
 }
 
 //Función para obtener los valores del input
 function ingresarDatosInput() {
-    inicilizarRegistro();
-    let CompobarValores = "Contiene valores"
-    let maquina = obtenerValores(ids);
-    //comprobamos que los valores del objeto no est´n vacios antes de agregarlos al array
-    for (let valores in maquina) {
-        if (!(maquina[valores] === "")) { 
-            CompobarValores = "vacio";
-        }
-    }
-    CompobarValores === "vacio" ? null : registro.push(maquina);
+    inicializarRegistro();
 
-    
-
-    //Borrar los elementos del input
-    //////REEMPLZAr por opción que indique que no puede haber duplicados
-    for (let key in maquina) {
-        let input = document.getElementById(key);
-        input.value = "";
-    }
+    let elementoNuevo = new maquina();
+    elementoNuevo.getInputs();
+    elementoNuevo.verificarDatosVacios();
+    elementoNuevo.contenido ? registro.push(elementoNuevo) : null;
 
     guardarRegistro();
 }
 
 //Función agregar filas en tabla de registro con el contenido del input
 function agregarFila() {
-    inicilizarRegistro();
+    inicializarRegistro();
     //Agregamos la tabla como variable a usar
     let tablaRegistro = document.getElementById("tablaRegistro");
-    //Agregamos un for con el tamaño igual a la cantidad de objetos que tenemos que guardar
+    //Agregamos un for con el tamaño igual a la cantidad de objetos que tenemos guardados en nuestro arreglo
     for(let j = 0; j < registro.length; j++){
         //Insertamos una fila nueva en la tabla existente
         let fila = tablaRegistro.insertRow();
@@ -424,7 +436,7 @@ function agregarFila() {
 }
 
 function ordernarLista (propiedad) {
-    inicilizarRegistro();
+    inicializarRegistro();
     //Variable para invertir los valores de la tabla sin que desaparezca cuando se refresca la pantalla
     let inversorGuardado = localStorage.getItem("inversor")
     //Si es distinto significa que fue presionado una sola vez
@@ -476,6 +488,7 @@ function crearEventoBoton(boton, propiedad){
         });
     }
 }
+
 /////////////////////////////////////////////////////////////////
 //                           Eventos                           //
 /////////////////////////////////////////////////////////////////
@@ -493,7 +506,8 @@ document.addEventListener("DOMContentLoaded", function() {
     agregarFila();
 });
 
-//Botones para ordenar la lista
+
+//////Botones para ordenar la lista
 
 //Alfabeticamente por nombre de operario
 crearEventoBoton(document.getElementById("btnOrdenarOperarioResponsable"),"operarioResponsable");
