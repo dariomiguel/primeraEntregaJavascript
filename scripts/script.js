@@ -50,6 +50,23 @@ class maquina {
 //   Declaración de objetos predeterminado para pruebas        //
 /////////////////////////////////////////////////////////////////
 
+function valoresPredeterminadosPrueba(){
+    inicializarRegistro();
+    let valorPruebaUno = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-01-01"), true);
+    registro.push(valorPruebaUno);
+    let valorPruebaDos = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-01-02"), true);
+    registro.push(valorPruebaDos);
+    let valorPruebaTres = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-02-01"), true);
+    registro.push(valorPruebaTres);
+    let valorPruebaCuatro = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-03-01"), true);
+    registro.push(valorPruebaCuatro);
+    let valorPruebaCinco = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2022-01-06"), true);
+    registro.push(valorPruebaCinco);
+    let valorPruebaSeis = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2023-01-01"), true);
+    registro.push(valorPruebaSeis);
+    guardarRegistro();
+}
+
 /////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
 /////////////////////////////////////////////////////////////////
@@ -505,6 +522,9 @@ btnReset !== null ? btnReset.addEventListener("click", reseteo) : null;
 document.addEventListener("DOMContentLoaded", function() {
     agregarFila();
 });
+
+let btnValoresPredeterminados = document.getElementById("btnValoresPredeterminados");
+btnValoresPredeterminados !== null ? btnValoresPredeterminados.addEventListener("click", valoresPredeterminadosPrueba) : null;
 
 
 //////Botones para ordenar la lista
