@@ -440,10 +440,12 @@ function agregarFila() {
     inicializarRegistro();
     //Agregamos la tabla como variable a usar
     let tablaRegistro = document.getElementById("tablaRegistro");
+    //Obtenemos el tbody de la tabla
+    let tbody = tablaRegistro.querySelector("tbody");
     //Agregamos un for con el tamaño igual a la cantidad de objetos que tenemos guardados en nuestro arreglo
     for(let j = 0; j < registro.length; j++){
-        //Insertamos una fila nueva en la tabla existente
-        let fila = tablaRegistro.insertRow();
+        //Insertamos una fila nueva en el tbody
+        let fila = tbody.insertRow();
         // Array con el contenido para cada celda
         let contenidoCeldas = valoresArray(registro[j])
         // Iterar sobre el array y crear una celda para cada elemento
@@ -495,18 +497,36 @@ function ordernarLista (propiedad) {
     return inversorGuardado
 }
 
+//Función para borrar tabla y colocar nuevos datos 
+function borrarTablaRegistro(){
+    let tabla = document.getElementById("tablaRegistro");
+    // Obtenemos todas las filas excepto la fila del encabezado
+    let filas = tabla.getElementsByTagName("tr");
+    let filasAEliminar = Array.from(filas).slice(1);
+    // Eliminar las filas
+    filasAEliminar.forEach((fila) => fila.remove());
+}
+
 //Función para resetear valores del local storage
 let reseteo = () => localStorage.clear();
 
 //Función para crear eventos para los botones de ordenamiento de la lista
-function crearEventoBoton(boton, propiedad){
-    if(boton !== null){
-        boton.addEventListener("click", function(){
+function crearEventoBoton(boton, propiedad) {
+    if (boton !== null) {
+        boton.addEventListener("click", (e) => {
+            borrarTablaRegistro();
             ordernarLista(propiedad);
-            location.reload();
+
+            //Gira la flecha del elemento que ordena la lista
+            let elementoTh = document.querySelectorAll("th");
+            let elementoB = document.querySelectorAll("th b");
+            elementoB.forEach((elementoB, index) => {
+                //Iteramos sobre cada th y verificamos que no posee la clase y colocamos la clase firar a quien corresponde
+                elementoTh[index] === e.target ? elementoB.classList.toggle("girar") : elementoB.classList.remove("girar")
+            });
         });
     }
-}
+}  
 
 /////////////////////////////////////////////////////////////////
 //                           Eventos                           //
