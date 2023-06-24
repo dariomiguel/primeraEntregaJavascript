@@ -34,6 +34,8 @@ class maquina {
         this.hsProduccion = document.getElementById("hsProduccion").value;
         this.paradasTecnicas = document.getElementById("paradasTecnicas").value;
         this.fechaTrabajo = document.getElementById("fechaTrabajo").value;
+        //Convierte el formato de fecha al que necesito en el proyecto
+        this.fechaTrabajo = new Date(this.fechaTrabajo).toLocaleDateString("es-ES");
         this.contenido = true;
     }
     //Metodo que verifica que no exista un elemeento vacío
@@ -52,17 +54,17 @@ class maquina {
 
 function valoresPredeterminadosPrueba(){
     inicializarRegistro();
-    let valorPruebaUno = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-01-01"), true);
+    let valorPruebaUno = new maquina("Darío", "asd111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaUno);
-    let valorPruebaDos = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-01-02"), true);
+    let valorPruebaDos = new maquina("Maira", "11d111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
     registro.push(valorPruebaDos);
-    let valorPruebaTres = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-02-01"), true);
+    let valorPruebaTres = new maquina("Carlos", "234aa", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
     registro.push(valorPruebaTres);
-    let valorPruebaCuatro = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2012-03-01"), true);
+    let valorPruebaCuatro = new maquina("Pepe", "cdcd21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
     registro.push(valorPruebaCuatro);
-    let valorPruebaCinco = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2022-01-06"), true);
+    let valorPruebaCinco = new maquina("Ana", "a1112f", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
     registro.push(valorPruebaCinco);
-    let valorPruebaSeis = new maquina("Darío", "asd111", 55500, 22, 3, new Date("2023-01-01"), true);
+    let valorPruebaSeis = new maquina("Simon", "aa1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaSeis);
     guardarRegistro();
 }
