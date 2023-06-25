@@ -17,7 +17,9 @@
     <!--            Mi estilo CSS            -->
     <!----------------------------------------->
     <link rel="stylesheet" href="../styles/style.css">
-    <title>Inicio</title>
+    <!--SweeteAlert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <title>Agregar Datos</title>
 </head>
 
 <body>
@@ -182,17 +184,17 @@
                                     <!-- CANTIDAD DE PRODUCCIÓN -->
                                     <div class="form-group">
                                         <label for="cantidadProduccion" class="mb-2">Cantidad de productos fabricados:</label>
-                                        <input type="number" class="form-control mb-2" id="cantidadProduccion" name="cantidadProduccion" placeholder="Ingrese producción"  min="1" max="100" step="1" value="1" required>
+                                        <input type="number" class="form-control mb-2" id="cantidadProduccion" name="cantidadProduccion" placeholder="Ingrese producción"  min="1" max="100" step="1" required>
                                     </div>
                                     <!-- HORAS DE PRODUCCIÓN -->
                                     <div class="form-group">
                                         <label for="hsProduccion" class="mb-2">Cantidad de horas de producción:</label>
-                                        <input type="number" class="form-control mb-2" id="hsProduccion" name="hsProduccion" placeholder="Ingrese hora de producción" min="1" max="24" step="1" value="1" required>
+                                        <input type="number" class="form-control mb-2" id="hsProduccion" name="hsProduccion" placeholder="Ingrese hora de producción" min="1" max="24" step="1" required>
                                     </div>
                                     <!-- PARADAS TÉCNICAS -->
                                     <div class="form-group">
                                         <label for="paradasTecnicas" class="mb-2">Cantidad de paradas técnicas:</label>
-                                        <input type="number" class="form-control mb-2" id="paradasTecnicas" name="paradasTecnicas" placeholder="Paradas técnicas"  min="0" max="150" step="1" value="0" required>
+                                        <input type="number" class="form-control mb-2" id="paradasTecnicas" name="paradasTecnicas" placeholder="Paradas técnicas"  min="0" max="150" step="1" required>
                                     </div>
                                     </div>
                                 </div>
@@ -226,6 +228,11 @@
         </div>
     </div>
 
+    <!----------------------------------------->
+    <!--       Scripts de Librerías          -->
+    <!----------------------------------------->
+    <!--Libreria script SweetAlert-->
+    <script src="sweetalert2.all.min.js"></script>
     <!----------------------------------------->
     <!--       Scripts de plantilla          -->
     <!----------------------------------------->

@@ -55,6 +55,20 @@
     margin-top: 90px
 }
 
+/*Cambio de formatos de sweet alert*/
+
+div.swal2-container button.swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(81, 203, 206, 0.5);
+}
+
+div.swal2-container button.swal2-styled.swal2-default-outline:focus {
+    box-shadow: 0 0 0 3px rgba(200, 100, 100, 0.5);
+}
+
+div.swal2-container button.swal2-styled.swal2-confirm {
+    background-color: rgb(81, 203, 206);
+}
+
 /*//////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 ////                      verDatos.html                           //

@@ -101,6 +101,7 @@ function guardarRegistro(){
 //               Metodos para manipular el HTML                //
 /////////////////////////////////////////////////////////////////
 
+//Función para restablecer los valores del inputs a valor vacío
 function restablecerValores() {
     for (let i = 0; i < ids.length; i++) {
         document.getElementById(ids[i]).value = "";
@@ -124,7 +125,7 @@ function ingresarDatosInput() {
     elementoNuevo.getInputs();
     elementoNuevo.normalizarValores()
     elementoNuevo.verificarDatosVacios();
-    elementoNuevo.contenido ? registro.push(elementoNuevo) : null;
+    elementoNuevo.contenido ? registro.push(elementoNuevo) : Swal.fire('Cuidado!','Complete todos los campos para continuar.','error');
 
     restablecerValores();
     guardarRegistro();
@@ -205,7 +206,20 @@ function borrarTablaRegistro(){
 }
 
 //Función para resetear valores del local storage
-let reseteo = () => localStorage.clear();
+let reseteo = () => {
+    Swal.fire({
+        title: '¿Desea eliminar todos los datos del registro?',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        confirmButtonColor: '#dc3741',
+        focusConfirm: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Se eliminaron los valores del registro', '', 'info')
+            localStorage.clear();
+        }
+    })
+}
 
 //Función para crear eventos para los botones de ordenamiento de la lista
 function crearEventoBoton(boton, propiedad) {
