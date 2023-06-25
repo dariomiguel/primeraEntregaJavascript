@@ -38,7 +38,7 @@ class maquina {
         
     }
     //Metodo para seleccionar los valores y retornar un valor correcto para la lista
-    normalizacionValores(){
+    normalizarValores(){
         //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
         this.operarioResponsable = this.operarioResponsable.charAt(0).toUpperCase()+this.operarioResponsable.slice(1).toLowerCase();
         //Convertimos los valores de los codigos de máquinas 
@@ -101,6 +101,12 @@ function guardarRegistro(){
 //               Metodos para manipular el HTML                //
 /////////////////////////////////////////////////////////////////
 
+function restablecerValores() {
+    for (let i = 0; i < ids.length; i++) {
+        document.getElementById(ids[i]).value = "";
+    }
+}
+
 //Función para sacar del objeto los valores y convertirlo en un array
 function valoresArray(objeto){
     let array = [];
@@ -116,19 +122,19 @@ function ingresarDatosInput() {
 
     let elementoNuevo = new maquina();
     elementoNuevo.getInputs();
-    elementoNuevo.normalizacionValores()
+    elementoNuevo.normalizarValores()
     elementoNuevo.verificarDatosVacios();
     elementoNuevo.contenido ? registro.push(elementoNuevo) : null;
 
+    restablecerValores();
     guardarRegistro();
 }
 
 //Función agregar filas en tabla de registro con el contenido del input
-
-if(document.getElementById("tablaRegistro")!==null){
-    function agregarFila() {
-        inicializarRegistro();
-        //Agregamos la tabla como variable a usar
+function agregarFila() {
+    inicializarRegistro();
+    //Agregamos la tabla como variable a usar
+    if(document.getElementById("tablaRegistro")!==null){
         let tablaRegistro = document.getElementById("tablaRegistro");
         //Obtenemos el tbody de la tabla
         let tbody = tablaRegistro.querySelector("tbody");
