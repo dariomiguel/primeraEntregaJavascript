@@ -67,7 +67,8 @@ function listarDatos(){
 //Función que calcular la mayor producción
 function mayorProduccion(){
     for(let i = 0; i < registro.length; i++){
-        if(registro[i].cantidadProduccion > mayor){
+        //Signo "+" convierte en número
+        if(+registro[i].cantidadProduccion > mayor){
             mayor = registro[i].cantidadProduccion;
             indexMayorProduccion = i;
         }
