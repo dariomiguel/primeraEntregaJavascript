@@ -15,7 +15,7 @@ let ids = ["operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProd
 //        Declaración de clase Constructora de objetos         //
 /////////////////////////////////////////////////////////////////
 
-class maquina {
+class Maquina {
     constructor(operarioResponsable, codigoMaquina, cantidadProduccion, hsProduccion, paradasTecnicas, fechaTrabajo, contenido){
         this.operarioResponsable = operarioResponsable;
         this.codigoMaquina = codigoMaquina;
@@ -64,18 +64,22 @@ class maquina {
 
 function valoresPredeterminadosPrueba(){
     inicializarRegistro();
-    let valorPruebaUno = new maquina("Darío", "asd111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
+    let valorPruebaUno = new Maquina("Darío", "asd111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaUno);
-    let valorPruebaDos = new maquina("Maira", "11d111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
+    let valorPruebaDos = new Maquina("Maira", "11d111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
     registro.push(valorPruebaDos);
-    let valorPruebaTres = new maquina("Carlos", "234aa", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
+    let valorPruebaTres = new Maquina("Carlos", "234aa", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
     registro.push(valorPruebaTres);
-    let valorPruebaCuatro = new maquina("Pepe", "cdcd21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
+    let valorPruebaCuatro = new Maquina("Pepe", "cdcd21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
     registro.push(valorPruebaCuatro);
-    let valorPruebaCinco = new maquina("Ana", "a1112f", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
+    let valorPruebaCinco = new Maquina("Ana", "a1112f", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
     registro.push(valorPruebaCinco);
-    let valorPruebaSeis = new maquina("Simon", "aa1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
+    let valorPruebaSeis = new Maquina("Simon", "aa1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaSeis);
+    Toastify({
+        text: "Se agregaron valores de prueba!",
+        duration: 3000
+        }).showToast();
     guardarRegistro();
 }
 
@@ -121,14 +125,22 @@ function valoresArray(objeto){
 function ingresarDatosInput() {
     inicializarRegistro();
 
-    let elementoNuevo = new maquina();
+    let elementoNuevo = new Maquina();
     elementoNuevo.getInputs();
-    elementoNuevo.normalizarValores()
     elementoNuevo.verificarDatosVacios();
-    elementoNuevo.contenido ? registro.push(elementoNuevo) : Swal.fire('Cuidado!','Complete todos los campos para continuar.','error');
-
-    restablecerValores();
-    guardarRegistro();
+    elementoNuevo.normalizarValores();
+    //Verificamos si todos los input tienen contenido
+    if(elementoNuevo.contenido){
+        registro.push(elementoNuevo);
+        restablecerValores();
+        guardarRegistro();
+        Toastify({
+            text: "Se agregaron datos al registro!",
+            duration: 3000
+            }).showToast();
+    }else{
+        Swal.fire('Cuidado!','Complete todos los campos para continuar.','error')
+    }
 }
 
 //Función agregar filas en tabla de registro con el contenido del input
