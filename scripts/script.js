@@ -228,13 +228,26 @@ let reseteo = () => {
 // enviarInformeDiario();
 function enviarInformeDiario() {
     inicializarCorreosMemoria();
-    let asuntoDiario = document.getElementById("asuntoDiario");
-    asuntoDiario.innerHTML = correosMemoria[0];
-    let mensajeDiario = document.getElementById("mensajeDiario");
-    mensajeDiario.innerHTML = correosMemoria[1];
+    informeDiario();
+    if(document.getElementById("asuntoDiario")!== null){
+        let asuntoDiario = document.getElementById("asuntoDiario");
+        asuntoDiario.innerHTML = correosMemoria[0];
+        let mensajeDiario = document.getElementById("mensajeDiario");
+        mensajeDiario.innerHTML = correosMemoria[1];
+    }
 }
 
-document.addEventListener("DOMContentLoaded", enviarInformeDiario);
+// enviarInformeMantenimiento();
+function enviarInformeMantenimiento() {
+    inicializarCorreosMemoria();
+    informeMantenimiento();
+    if(document.getElementById("asuntoMantenimiento")!== null){
+        let asuntoMantenimiento = document.getElementById("asuntoMantenimiento");
+        asuntoMantenimiento.innerHTML = correosMemoria[2];
+        let mensajeMantenimiento = document.getElementById("mensajeMantenimiento");
+        mensajeMantenimiento.innerHTML = correosMemoria[3];
+    }
+}
 
 //Función para crear eventos para los botones de ordenamiento de la lista
 function crearEventoBoton(boton, propiedad) {
@@ -313,5 +326,10 @@ let maquinaRandom = () =>{
         });
     }
 
+//Boton para agregar valores random que vienen de la API
 let btnValoresRandom = document.getElementById("btnValoresRandom");
 btnValoresRandom !== null ? btnValoresRandom.addEventListener("click",maquinaRandom) : null;
+
+
+enviarInformeDiario !== null ? document.addEventListener("DOMContentLoaded", enviarInformeDiario) : null;
+enviarInformeMantenimiento !== null ? document.addEventListener("DOMContentLoaded", enviarInformeMantenimiento) : null;

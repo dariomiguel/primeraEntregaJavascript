@@ -150,23 +150,22 @@ function informeDiario(){
     let asunto = `Asunto: Producción del día ${fechaActualTexto}\n`
     let mensaje =
     `Informe:
-    La máquina que más produjo es la ${registro[indexMayorProduccion].codigoMaquina}. El total de 
-    producción del día es de ${total} unidades, dando un promedio
-    de ${promedio.toFixed()} unidades por máquina.
-    Saludos cordiales`;
+    La máquina que más produjo fue la ${registro[indexMayorProduccion].codigoMaquina}. El total de 
+    producción del día fue de ${total} unidades, dando un promedio
+    de ${promedio.toFixed()} unidades por máquina.`;
+    let saludo = "\nSaludos cordiales";
 
     correosMemoria[0] = asunto;
     correosMemoria[1] = mensaje;
-
     guardarCorreosMemoria();
-    alert(asunto+mensaje);
+
+    return asunto+mensaje+saludo
 }
 
-informeDiario()
 //Función para enviar correo de informe de producción diario.
-function enviarInformeMantenimiento(){
+function informeMantenimiento(){
     mostrarFechaHoy();
-
+    informeDiario();
     /* Se crea una variable signoAuxiliar donde se ubicarán los valores para los strings y se crea un array de mantenimiento vacío que 
     contendrá unicamente las máquinas que necesitan mantenimiento, para que en el texto queden corectamente las comas. las 
     variables oracionAuxiliarA y oracionAuxiliarB, corresponden a las variables para que el mensaje esté en plural o no.*/  
@@ -187,17 +186,24 @@ function enviarInformeMantenimiento(){
         signoAuxiliar = ": " + arrayMantenimiento.join(", ");
     }
 
+    saludo = `\n\nSaludos Cordiales`;
     //Si la función tiene uno o más máquinas, cambiará el texto del mensaje.
     if(arrayMantenimiento.length === 0){
-        alert("Asunto: Máquina para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
-        "Informe: \nNo se presentan máquinas para mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
+        asunto =`Asunto: Máquina para mantenimiento preventivo           ${fechaActualTexto}\n\n`;
+        mensaje =`Informe: \nNo se presentan máquinas para mantenimiento preventivo ${signoAuxiliar}.`;
     }else if(arrayMantenimiento.length === 1){
-        alert("Asunto: Máquina para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
-        "Informe: \nLa siguiente máquinas necesita mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
+        asunto = `Asunto: Máquina para mantenimiento preventivo          ${fechaActualTexto}\n\n`;
+        mensaje = `Informe: \nLa siguiente máquinas necesita mantenimiento preventivo ${signoAuxiliar}.`;
     }else{
-        alert("Asunto: Máquinas para mantenimiento preventivo          " + fechaActualTexto + "\n\n" +
-        "Informe: \nLas siguientes máquinas necesitan mantenimiento preventivo" + signoAuxiliar + ".\n\nSaludos Cordiales");
+        asunto = `Asunto: Máquinas para mantenimiento preventivo          ${fechaActualTexto}\n\n`;
+        mensaje = `Informe: \nLas siguientes máquinas necesitan mantenimiento preventivo ${signoAuxiliar}.`;
     }
+
+    correosMemoria[2] = asunto;
+    correosMemoria[3] = mensaje;
+    guardarCorreosMemoria();
+
+    return asunto+mensaje+saludo
 }
 
 //Función para buscar según código de máquina.
@@ -348,9 +354,11 @@ function respuestaClick(){
                     break;
                 case 3:
                     verificarDatosCargados(informeDiario);
+                    alert(informeDiario());
                     break;
                 case 4:
-                    verificarDatosCargados(enviarInformeMantenimiento);
+                    verificarDatosCargados(informeMantenimiento);
+                    alert(informeMantenimiento());
                     break;
                 case 5:
                     verificarDatosCargados(menuBusqueda);
