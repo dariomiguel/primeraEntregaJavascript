@@ -5,9 +5,6 @@
 //Variables Globales
 datos=false;
 
-//Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
-let registro =  [], registroJson =  JSON.stringify(registro);
-
 //Nombre de las ID que se utilizan en la table
 let ids = ["operarioResponsable", "codigoMaquina", "cantidadProduccion", "hsProduccion", "paradasTecnicas", "fechaTrabajo"];
 
@@ -64,15 +61,15 @@ class Maquina {
 
 function valoresPredeterminadosPrueba(){
     inicializarRegistro();
-    let valorPruebaUno = new Maquina("Darío", "ASD111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
+    let valorPruebaUno = new Maquina("Darío", "ASD111", 55500, 22, 1, new Date("2023-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaUno);
-    let valorPruebaDos = new Maquina("Maira", "11D111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
+    let valorPruebaDos = new Maquina("Maira", "11D111", 5500, 12, 3, new Date("2023-01-02").toLocaleDateString(), true);
     registro.push(valorPruebaDos);
-    let valorPruebaTres = new Maquina("Carlos", "234AAV", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
+    let valorPruebaTres = new Maquina("Carlos", "234AAV", 23, 1, 12, new Date("2023-02-01").toLocaleDateString(), true);
     registro.push(valorPruebaTres);
-    let valorPruebaCuatro = new Maquina("Pepe", "CDCD21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
+    let valorPruebaCuatro = new Maquina("Pepe", "CDCD21", 11, 23, 3, new Date("2023-03-01").toLocaleDateString(), true);
     registro.push(valorPruebaCuatro);
-    let valorPruebaCinco = new Maquina("Ana", "A1112F", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
+    let valorPruebaCinco = new Maquina("Ana", "A1112F", 31231, 10, 0, new Date("2023-01-06").toLocaleDateString(), true);
     registro.push(valorPruebaCinco);
     let valorPruebaSeis = new Maquina("Simon", "AA1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaSeis);
@@ -83,23 +80,10 @@ function valoresPredeterminadosPrueba(){
     guardarRegistro();
 }
 
+
 /////////////////////////////////////////////////////////////////
 //                Declaración de funciones                     //
 /////////////////////////////////////////////////////////////////
-
-//Función para inicialiar los elementos del registro
-function inicializarRegistro(){
-    registroJson = localStorage.getItem("registro");
-    //llenamos el contenido de "registro" con lo que posee "registroJson" y si está vacío que cree un array vacío.
-    registro = JSON.parse(registroJson) || [];
-    datos = registro.length !== 0;  
-}
-
-//Función para guardar en registro
-function guardarRegistro(){
-    registroJson = JSON.stringify(registro);
-    localStorage.setItem("registro", registroJson);
-}
 
 //Función para convertir en fecha los elementos dados
 function convertirAFecha (dia, mes, anio){
@@ -132,7 +116,7 @@ function valoresArray(objeto){
 //Función para obtener los valores del input
 function ingresarDatosInput() {
     inicializarRegistro();
-
+    
     let elementoNuevo = new Maquina();
     elementoNuevo.getInputs();
     elementoNuevo.verificarDatosVacios();
@@ -145,7 +129,7 @@ function ingresarDatosInput() {
         Toastify({
             text: "Se agregaron datos al registro!",
             duration: 3000
-            }).showToast();
+        }).showToast();
     }else{
         Swal.fire('Cuidado!','Complete todos los campos para continuar.','error')
     }
@@ -205,7 +189,7 @@ function ordernarLista (propiedad) {
             }
             localStorage.setItem("inversor", propiedad);
         }
-    //lógica para invertir la tabla
+        //lógica para invertir la tabla
     }else{
         registro = [...registro].reverse();
         localStorage.setItem("inversor", "variableDiferente");
@@ -240,6 +224,17 @@ let reseteo = () => {
         }
     })
 }
+
+// enviarInformeDiario();
+function enviarInformeDiario() {
+    inicializarCorreosMemoria();
+    let asuntoDiario = document.getElementById("asuntoDiario");
+    asuntoDiario.innerHTML = correosMemoria[0];
+    let mensajeDiario = document.getElementById("mensajeDiario");
+    mensajeDiario.innerHTML = correosMemoria[1];
+}
+
+document.addEventListener("DOMContentLoaded", enviarInformeDiario);
 
 //Función para crear eventos para los botones de ordenamiento de la lista
 function crearEventoBoton(boton, propiedad) {

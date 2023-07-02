@@ -5,8 +5,44 @@
 //Variables Globales
 let opcionMenuPrincipal=0, mayor=0, indexMayorProduccion=0, total=0, promedio=0, datos=false, fechaActualTexto="";
 
+//Declaración del array vacío que nos servirá para listar los elementos como si fuera una base de datos.
+let registro =  [], registroJson =  JSON.stringify(registro);
+//Declaración del array para mensajes en memoria local.
+let correosMemoria =  [], correoJson =  JSON.stringify(correosMemoria);
+
 /////////////////////////////////////////////////////////////////
-//                Declaración de funciones                     //
+//  Funciones de inicialización y guardado en memoria local    //
+/////////////////////////////////////////////////////////////////
+
+//Función para inicialiar los elementos del registro
+function inicializarRegistro(){
+    registroJson = localStorage.getItem("registro");
+    //llenamos el contenido de "registro" con lo que posee "registroJson" y si está vacío que cree un array vacío.
+    registro = JSON.parse(registroJson) || [];
+    datos = registro.length !== 0;  
+}
+
+//Función para guardar en registro
+function guardarRegistro(){
+    registroJson = JSON.stringify(registro);
+    localStorage.setItem("registro", registroJson);
+}
+
+//Función para inicialiar los elementos del correo
+function inicializarCorreosMemoria(){
+    correoJson = localStorage.getItem("correosMemoria");
+    correosMemoria = JSON.parse(correoJson) || [];
+    datosCorreo = correosMemoria.length !== 0;  
+}
+
+//Función para guardar en correosMemoria
+function guardarCorreosMemoria(){
+    correoJson = JSON.stringify(correosMemoria);
+    localStorage.setItem("correosMemoria", correoJson);
+}
+
+/////////////////////////////////////////////////////////////////
+//            Declaración de funciones para Prompts            //
 /////////////////////////////////////////////////////////////////
 
 //Función para el Menú Principal prompt.
@@ -91,7 +127,7 @@ function calcularPromedio() {
     promedio = totalProduccion / registro.length;
 };
 
-//Función que muestra en texto la fecha del dia de hoy
+//Función que muestra informeDiario en texto la fecha del dia de hoy
 function mostrarFechaHoy(){
     //Se crea un objeto llamado fecha actual para poder extraer los dias, mes y años del día que se ejecute
     const fechaActual = new Date();  
@@ -102,17 +138,31 @@ function mostrarFechaHoy(){
 }
 
 //Función para enviar correo de informe de producción diario
-function enviarInformeDiario(){
+function informeDiario(){
     // Se llaman a las funciones para tener los valores que se colocarán en el cuerpo del mensaje (total, promedio, Mayor producción y fecha)
+    inicializarRegistro();
+    inicializarCorreosMemoria();
     mayorProduccion();
     produccionTotal();
     calcularPromedio();
     mostrarFechaHoy();
 
-    alert("Asunto: Producción del día " + fechaActualTexto + "\nInforme: \n\n" + 
-    "La máquina que más produjo es la " + registro[indexMayorProduccion].codigoMaquina + ". El total de producción del día es de " + total + " unidades, dando un promedio de " + promedio + " unidades por máquina.\n\nSaludos Cordiales");
+    let asunto = `Asunto: Producción del día ${fechaActualTexto}\n`
+    let mensaje =
+    `Informe:
+    La máquina que más produjo es la ${registro[indexMayorProduccion].codigoMaquina}. El total de 
+    producción del día es de ${total} unidades, dando un promedio
+    de ${promedio.toFixed()} unidades por máquina.
+    Saludos cordiales`;
+
+    correosMemoria[0] = asunto;
+    correosMemoria[1] = mensaje;
+
+    guardarCorreosMemoria();
+    alert(asunto+mensaje);
 }
 
+informeDiario()
 //Función para enviar correo de informe de producción diario.
 function enviarInformeMantenimiento(){
     mostrarFechaHoy();
@@ -297,7 +347,7 @@ function respuestaClick(){
                     verificarDatosCargados(listarDatos);
                     break;
                 case 3:
-                    verificarDatosCargados(enviarInformeDiario);
+                    verificarDatosCargados(informeDiario);
                     break;
                 case 4:
                     verificarDatosCargados(enviarInformeMantenimiento);
