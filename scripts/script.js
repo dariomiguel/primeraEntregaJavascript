@@ -28,17 +28,19 @@ class Maquina {
     }
     //Metodo para obtener los valores mediante los inputs
     getInputs() {
+        this.fechaTrabajo = document.getElementById("fechaTrabajo").value;
         this.operarioResponsable = document.getElementById("operarioResponsable").value;
         this.codigoMaquina = document.getElementById("codigoMaquina").value;
         this.cantidadProduccion = document.getElementById("cantidadProduccion").value;
         this.hsProduccion = document.getElementById("hsProduccion").value;
         this.paradasTecnicas = document.getElementById("paradasTecnicas").value;
-        this.fechaTrabajo = document.getElementById("fechaTrabajo").value;
-        this.contenido = true
+        this.contenido = true;
         
     }
     //Metodo para seleccionar los valores y retornar un valor correcto para la lista
     normalizarValores(){
+        //Convierte el formato de fecha al que necesito en el proyecto
+        this.fechaTrabajo = new Date(this.fechaTrabajo).toLocaleDateString("es-ES");     
         //Convertir los nombres de los operarios a tipo oración y los pase de esta manera al registro
         this.operarioResponsable = this.operarioResponsable.charAt(0).toUpperCase()+this.operarioResponsable.slice(1).toLowerCase();
         //Convertimos los valores de los codigos de máquinas 
@@ -47,8 +49,6 @@ class Maquina {
         this.cantidadProduccion = parseInt(this.cantidadProduccion,10);
         this.hsProduccion = parseInt(this.hsProduccion,10);
         this.paradasTecnicas = parseInt(this.paradasTecnicas,10);
-        //Convierte el formato de fecha al que necesito en el proyecto
-        this.fechaTrabajo = new Date(this.fechaTrabajo).toLocaleDateString("es-ES");     
     }
     //Metodo que verifica que no exista un elemeento vacío
     verificarDatosVacios(){
@@ -64,17 +64,17 @@ class Maquina {
 
 function valoresPredeterminadosPrueba(){
     inicializarRegistro();
-    let valorPruebaUno = new Maquina("Darío", "asd111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
+    let valorPruebaUno = new Maquina("Darío", "ASD111", 55500, 22, 1, new Date("2012-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaUno);
-    let valorPruebaDos = new Maquina("Maira", "11d111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
+    let valorPruebaDos = new Maquina("Maira", "11D111", 5500, 12, 3, new Date("2012-01-02").toLocaleDateString(), true);
     registro.push(valorPruebaDos);
-    let valorPruebaTres = new Maquina("Carlos", "234aa", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
+    let valorPruebaTres = new Maquina("Carlos", "234AAV", 23, 1, 12, new Date("2012-02-01").toLocaleDateString(), true);
     registro.push(valorPruebaTres);
-    let valorPruebaCuatro = new Maquina("Pepe", "cdcd21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
+    let valorPruebaCuatro = new Maquina("Pepe", "CDCD21", 11, 23, 3, new Date("2012-03-01").toLocaleDateString(), true);
     registro.push(valorPruebaCuatro);
-    let valorPruebaCinco = new Maquina("Ana", "a1112f", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
+    let valorPruebaCinco = new Maquina("Ana", "A1112F", 31231, 10, 0, new Date("2022-01-06").toLocaleDateString(), true);
     registro.push(valorPruebaCinco);
-    let valorPruebaSeis = new Maquina("Simon", "aa1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
+    let valorPruebaSeis = new Maquina("Simon", "AA1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
     registro.push(valorPruebaSeis);
     Toastify({
         text: "Se agregaron valores de prueba!",
@@ -99,6 +99,14 @@ function inicializarRegistro(){
 function guardarRegistro(){
     registroJson = JSON.stringify(registro);
     localStorage.setItem("registro", registroJson);
+}
+
+//Función para convertir en fecha los elementos dados
+function convertirAFecha (dia, mes, anio){
+    let fecha = new Date(anio, mes - 1, dia);
+    //Convertimos la fecha a un formato standard que utilzamos en el script
+    let fechaFormateada = fecha.toISOString().split("T")[0];
+    return fechaFormateada
 }
 
 /////////////////////////////////////////////////////////////////
@@ -285,3 +293,30 @@ crearEventoBoton(document.getElementById("btnOrdenarHsProduccion"),"hsProduccion
 crearEventoBoton(document.getElementById("btnOrdenarParadas"),"paradasTecnicas");
 //Numericamente por fecha
 crearEventoBoton(document.getElementById("btnOrdenarFecha"),"fechaTrabajo");
+
+let maquinaRandom = () =>{ 
+    fetch("https://randomapi.com/api/wq29y0su?key=DOWN-I1EH-1F0L-6RKT")
+        .then(response => response.json())
+        .then(data => {
+            let inputFechaTrabajo = document.getElementById("fechaTrabajo");
+            inputFechaTrabajo.value = convertirAFecha( data.results[0].maquinaRandom.fecha.dia, data.results[0].maquinaRandom.fecha.mes - 1, 2023);
+            
+            let inputOperarioResponsable = document.getElementById("operarioResponsable");
+            inputOperarioResponsable.value = data.results[0].maquinaRandom.nombre;
+            
+            let inputCodigoMaquina = document.getElementById("codigoMaquina");
+            inputCodigoMaquina.value = data.results[0].maquinaRandom.codigo;
+            
+            let inputCantidadProduccion = document.getElementById("cantidadProduccion");
+            inputCantidadProduccion.value = data.results[0].maquinaRandom.produccion;
+            
+            let inputHsProduccion = document.getElementById("hsProduccion");
+            inputHsProduccion.value = data.results[0].maquinaRandom.horasProduccion;
+            
+            let inputParadasTecnicas = document.getElementById("paradasTecnicas");
+            inputParadasTecnicas.value = data.results[0].maquinaRandom.paradas;        
+        });
+    }
+
+let btnValoresRandom = document.getElementById("btnValoresRandom");
+btnValoresRandom !== null ? btnValoresRandom.addEventListener("click",maquinaRandom) : null;
