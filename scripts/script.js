@@ -365,6 +365,15 @@ btnValoresRandom !== null ? btnValoresRandom.addEventListener("click",maquinaRan
 enviarInformeDiario !== null ? document.addEventListener("DOMContentLoaded", enviarInformeDiario) : null;
 enviarInformeMantenimiento !== null ? document.addEventListener("DOMContentLoaded", enviarInformeMantenimiento) : null;
 
+let btnEnviarCorreo = document.getElementsByClassName("botonEnviarCorreo");
+if (btnEnviarCorreo !== null) {
+    Array.from(btnEnviarCorreo).forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            Swal.fire('Listo!', 'El correo se ha enviado correctamente.', 'success');
+        });
+    });
+}
+
 if(document.getElementById('myChart')!==null){
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
