@@ -160,14 +160,14 @@ function agregarFila() {
     }
 }
 
-function ordernarLista (propiedad) {
+function ordenarLista (propiedad) {
     inicializarRegistro();
     //Variable para invertir los valores de la tabla sin que desaparezca cuando se refresca la pantalla
     let inversorGuardado = localStorage.getItem("inversor")
     //Si es distinto significa que fue presionado una sola vez
     if (propiedad !== inversorGuardado){    
         // En la lógica excluimos a quienes queremos tratar como texto
-        if (propiedad === "operarioResponsable" || propiedad === "codigoMaquina"|| propiedad === "fechaTrabajo"){
+        if (propiedad === "operarioResponsable" || propiedad === "codigoMaquina"){
             //Se crea un ordenador para mover de lugar los elementos del registro, utilzando una variable auxiliar donde guardamos los objetos
             for(let i = 0; i < registro.length -1; i++){
                 for (let j = i + 1; j < registro.length; j++){
@@ -180,15 +180,14 @@ function ordernarLista (propiedad) {
             }
             localStorage.setItem("inversor", propiedad);
         }else if (propiedad === "fechaTrabajo"){
-            for(let i = 0; i < registro.length -1; i++){
-                for (let j = i + 1; j < registro.length; j++){
-                    if (registro[i][propiedad] > registro[j][propiedad]){
-                        let aux = registro[i];
-                        registro[i] = registro[j];
-                        registro[j] = aux;
-                    }
-                }
-            }
+            datosOrdenados = registro.sort((a, b) => {
+                //Para poder ordenar las fechas hay que usar el metodo sort, y hay que pasar las fechas que están desordenadas como string
+                //a formato fecha con el new Date, como hay que ordenar la fecha, se los separa, se los invierte y se los vuelve a unir 
+                //luego se comparan nos da el resultado del orden
+                fechaA = new Date(a.fechaTrabajo.split("/").reverse().join("/"));
+                fechaB = new Date(b.fechaTrabajo.split("/").reverse().join("/"));
+            return fechaA - fechaB;
+        });
             localStorage.setItem("inversor", propiedad);
         }else{
             for(let i = 0; i < registro.length -1; i++){
@@ -267,7 +266,7 @@ function crearEventoBoton(boton, propiedad) {
     if (boton !== null) {
         boton.addEventListener("click", (e) => {
             borrarTablaRegistro();
-            ordernarLista(propiedad);
+            ordenarLista(propiedad);
 
             //Gira la flecha del elemento que ordena la lista
             let elementoTh = document.querySelectorAll("th");
