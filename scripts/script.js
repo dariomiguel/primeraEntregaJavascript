@@ -61,18 +61,20 @@ class Maquina {
 
 function valoresPredeterminadosPrueba(){
     inicializarRegistro();
-    let valorPruebaUno = new Maquina("Darío", "ASD111", 55500, 22, 1, new Date("2023-01-01").toLocaleDateString(), true);
+    let valorPruebaUno = new Maquina("Darío", "ASD111", 55500, 22, 1, new Date("2022-12-05").toLocaleDateString(), true);
     registro.push(valorPruebaUno);
     let valorPruebaDos = new Maquina("Maira", "11D111", 5500, 12, 3, new Date("2023-01-02").toLocaleDateString(), true);
     registro.push(valorPruebaDos);
-    let valorPruebaTres = new Maquina("Carlos", "234AAV", 23, 1, 12, new Date("2023-02-01").toLocaleDateString(), true);
+    let valorPruebaTres = new Maquina("Carlos", "234AAV", 23121, 1, 12, new Date("2023-02-15").toLocaleDateString(), true);
     registro.push(valorPruebaTres);
-    let valorPruebaCuatro = new Maquina("Pepe", "CDCD21", 11, 23, 3, new Date("2023-03-01").toLocaleDateString(), true);
+    let valorPruebaCuatro = new Maquina("Pepe", "CDCD21", 11001, 23, 3, new Date("2023-03-12").toLocaleDateString(), true);
     registro.push(valorPruebaCuatro);
-    let valorPruebaCinco = new Maquina("Ana", "A1112F", 31231, 10, 0, new Date("2023-01-06").toLocaleDateString(), true);
+    let valorPruebaCinco = new Maquina("Ana", "A1112F", 31231, 10, 0, new Date("2023-04-06").toLocaleDateString(), true);
     registro.push(valorPruebaCinco);
-    let valorPruebaSeis = new Maquina("Simon", "AA1144", 600, 21, 15, new Date("2023-01-01").toLocaleDateString(), true);
+    let valorPruebaSeis = new Maquina("Simon", "AA1144", 6001, 21, 15, new Date("2023-05-07").toLocaleDateString(), true);
     registro.push(valorPruebaSeis);
+    let valorPruebaSiete = new Maquina("Carolina", "ZA1144", 43600, 21, 15, new Date("2023-06-24").toLocaleDateString(), true);
+    registro.push(valorPruebaSiete);
     Toastify({
         text: "Se agregaron valores de prueba!",
         duration: 3000
@@ -177,6 +179,17 @@ function ordernarLista (propiedad) {
                 }
             }
             localStorage.setItem("inversor", propiedad);
+        }else if (propiedad === "fechaTrabajo"){
+            for(let i = 0; i < registro.length -1; i++){
+                for (let j = i + 1; j < registro.length; j++){
+                    if (registro[i][propiedad] > registro[j][propiedad]){
+                        let aux = registro[i];
+                        registro[i] = registro[j];
+                        registro[j] = aux;
+                    }
+                }
+            }
+            localStorage.setItem("inversor", propiedad);
         }else{
             for(let i = 0; i < registro.length -1; i++){
                 for (let j = i + 1; j < registro.length; j++){
@@ -267,6 +280,25 @@ function crearEventoBoton(boton, propiedad) {
     }
 }  
 
+//Funcion para crear gráfico de barras desde la librería  chart.js
+function sumarProduccionMensual(){
+    inicializarRegistro();
+    let mes = [12,1,2,3,4,5,6,7];
+    let sumaMes = [0,0,0,0,0,0,0,0];
+    for(let j = 0; j < registro.length ; j++)
+        for(let i = 0;i < registro.length;i++){
+            produccion = registro[i].cantidadProduccion;
+            mesProduccion = parseInt(registro[i].fechaTrabajo.split("/")[1], 10);
+            if(mes[j] === mesProduccion){
+                sumaMes[j] += produccion; 
+            }
+        }
+    return sumaMes
+}
+
+console.log(sumarProduccionMensual());
+
+
 /////////////////////////////////////////////////////////////////
 //                           Eventos                           //
 /////////////////////////////////////////////////////////////////
@@ -333,3 +365,27 @@ btnValoresRandom !== null ? btnValoresRandom.addEventListener("click",maquinaRan
 
 enviarInformeDiario !== null ? document.addEventListener("DOMContentLoaded", enviarInformeDiario) : null;
 enviarInformeMantenimiento !== null ? document.addEventListener("DOMContentLoaded", enviarInformeMantenimiento) : null;
+
+if(document.getElementById('myChart')!==null){
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+            datasets: [{
+                label: '# Producción mensual',
+                data: sumarProduccionMensual(),
+                borderWidth: 1,
+                backgroundColor: 'rgb(105, 132, 143, 0.2)',
+                borderColor:'rgb(105, 132, 143)'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
